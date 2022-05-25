@@ -26,7 +26,7 @@
     
     if( !class_exists('MemberAction') )
     {
-        class MemberAction extends Action 
+        class MemberAction extends Action  
         {
             /**
              * Member Constructor
