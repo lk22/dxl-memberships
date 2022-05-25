@@ -1,0 +1,16 @@
+{
+    "name": "leoknudsen/dxl-memberships",
+    "description": "Membership handling plugin special designed for Danish Xbox League",
+    "autoload": {
+        "psr-4": {
+            "DxlMembership\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leo Knudsen",
+            "email": "knudsenudvikling@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

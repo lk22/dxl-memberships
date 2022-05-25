@@ -1,0 +1,332 @@
+<div class="dxl-admin-members member-details-container">
+    <div class="header">
+        <h2><?php echo $member->name; ?> <span><small>(<?php echo $membership->name ?>)</small></span></h2>
+        <div class="actions">
+            <a href="<?php echo generate_dxl_admin_page_url('dxl-members'); ?>" class="button-primary">Gå tilbage</a>
+            <button class="button-primary search-members-btn">Søg <span class="dashicons dashicons-filter"></span></button>
+            <a href="#" class="button-primary open-edit-member-modal-btn">Rediger medlem <span class="dashicons dashicons-edit"></span></a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="searchbar closed">
+            <h1>Søg medlemmer <span><button class="search-members-btn button-primary">Luk</button></span></h1>
+            <hr>
+            <form action="#" class="memberListSearchForm">
+                <div class="form-group">
+                    <p>Vælg felt</p>
+                    <select name="search-field" id="search-field-selection">
+                        <option value="0">Vælg søge kriterie</option>
+                        <option value="name">Navn</option>
+                        <option value="email">E-mail</option>
+                        <option value="gamertag">Gamertag</option>
+                        <option value="city">By</option>
+                        <option value="municipality">Kommunne</option>
+                    </select>
+                </div>
+                <div class="form-group search-field">
+                    <input type="text" placeholder="Search member name here" name="member-name-field" id="member-name-field">
+                </div>
+                <button class="search-member-button button-primary">Søg</button>
+            </form>
+
+            <div class="search-member-list">
+                
+            </div>
+        </div>
+        <div class="member-details details">
+            <div class="left-details">
+                <h1>Medlems informationer</h1>
+                <?php
+                    foreach([
+                        "Medlemsnummer" => $member->member_number,
+                        "Gamertag" => $member->gamertag,
+                        "Adresse" => $member->address,
+                        "Postnummer" => $member->zipcode,
+                        "Bynavn" => $member->city,
+                        "Kommune" => $member->municipality,
+                        "Email" => $member->email,
+                        "Fødselsår" => $member->birthyear
+                    ] as $key => $value) {
+                        ?>
+                            <div class="member-<?php echo $key ?>" style="margin-bottom: 10px">
+                                <h2><?php echo $key; ?>: <small class="key-<?php echo $key; ?>"><?php echo $value; ?></small></h2> 
+                            </div>
+                        <?php
+                    }
+                ?>
+            </div>
+            <div class="right-details">
+                <div class="membership">
+                    <h3>Valgt medlemsskab: <?php echo $membership->name ?></h3>
+                </div>
+                <div class="approved">
+                    <?php
+                        if( $member->approved_date != 0 ){
+                            echo "<p>Betaling godkendt: " . date('d-m-Y H:i', strtotime($member->approved_date)) . "</p>";
+                        }
+                    ?>
+                </div>
+                <div class="has_payed">
+                    <p>Betalings status: </p>
+                    <?php 
+                        if( $member->is_payed ){
+                            ?>
+                                <div class="status-label success"><span>betalt</span></div>
+                            <?php
+                        } else {
+                            ?>
+                                <div class="status-label danger"><span>Manger betaling</span></div> 
+                            <?php
+                        }
+                    ?>
+                    <?php
+					// if ( $membership > 0) {
+					// 	if( $membership->length == 6 ) {
+					// 		$length = date("d-m-Y", strtotime('last day of June this year '));
+					// 		if( $existingMember->approved_date > strtotime('las day of June this year') ) {
+					// 			$length = date("d-m-Y", strtotime('last day of December this year')); 
+					// 		}
+					// 	} else if( $membership->length == 12 ) {
+					// 		$length = date("d-m-Y", strtotime('last day of December this year'));
+					// 	}
+
+					// 	echo "<h5 class='label label-success'>Betalt</h5>";
+					// 	echo "<p>Betalt " . date("d-m.Y", $existingMember->approved_date) . "</p>";
+					// 	echo "<p>Udløbsdato: " . $length . "</p>";
+					// 	if( $existingMember->auto_renew ) {
+					// 		$renewalClass = "alert alert-success renewal-text";
+					// 		$renewal = "ønsker auto fornyelse af medlemsskab";
+					// 		//echo "<button class='button-primary' onclick='updateAutoRenewal(" . $existingMember . ", 'deactivate')'>Deaktiver autofornyelse</button>";
+					// 	} else {
+					// 		$renewalClass = "alert alert-warning renewal-text";
+					// 		$renewal = "ønsker ikke fornyelse af medlemsskab";
+					// 		//echo "<button class='button-primary' onclick='updateAutoRenewal(" . $existingMember. ", 'activate')'>Aktiver autofornyelse</button>";
+					// 	}
+					// 	echo "<p class='" . $renewalClass . "'>" . $renewal . "</p>"; 
+					// 	// var_dump($existingMember);
+					// 	echo "<div><button class='btn btn-danger' onclick='cancelMembership(" . $existingMember->id . ");'>Afmeld</button><div>";
+					// } else {
+					// 	echo "<small class='label label-danger'>Afventer betaling</small> ";
+					// 	echo "<button class='has_payed button-primary' style='cursor:pointer' onclick='updatePaymentOnMember(" . $existingMember->id . ")'>Har Medlemmet betalt?</button>";
+					// }
+					
+				?>
+                <?php
+                    if( $member->is_payed ) {
+                        ?>
+                            <div class="member-actions">
+                                <?php 
+                                    if( $member->profile_activated ) {
+                                        ?>
+                                            <button class="deactivate-profile-button button-primary" data-action="deactivate-profile" data-member="<?php echo $member->id ?>">Deaktiver profil</button>
+                                        <?php
+                                    } else {
+                                        ?>
+                                            <button class="activate-profile-button button-primary" data-action="activate-profile" data-member="<?php echo $member->id ?>">Aktiver profil</button>
+                                        <?php
+                                    }
+
+                                    if( isset($profile) ) {
+                                        if( $profile->is_trainer ) {
+                                            ?>
+                                                <button class="remove-trainer-permissions-btn button-primary" data-action="remove-trainer-permissions" data-member="<?php echo $member->id ?>">Fjern træner rettigheder</button>
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <button class="assign-trainer-permissions-btn button-primary" data-action="assign-trainer-permissions" data-member="<?php echo $member->id ?>">Gør til træner</button>
+                                            <?php
+                                        }
+
+                                        if( $profile->is_tournament_author ) {
+                                            ?>
+                                                <button class="remove-tournament-permissions-btn button-primary" data-action="remove-tournament-permissions" data-member="<?php echo $member->id ?>">Gør ikke til turnerings ansvarlig</button>
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <button class="assign-tournament-permissions-btn button-primary" data-action="assign-tournament-permissions" data-member="<?php echo $member->id ?>">Gør til turnerings ansvarlig</button>
+                                            <?php
+                                        }
+                                    }
+                                ?>
+                                <button class="deactivate-member-button button-primary" data-action="deactivate-member" data-member="<?php echo $member->id; ?>">Deaktiver medlem</button>
+                            </div>
+                        <?php
+                    }
+
+                    if( !$member->is_payed ) {
+                        ?>
+                            <button class="button-primary has-payed-button">Har medlemmet betalt?</button>
+                        <?php
+                    }
+                ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal hasPayedModal small-modal hidden" role="dialog" data-modal="hasPayedModal">
+    <div class="modal-header">
+        <h1>Accepter betaling på følgende medlem <?php echo $member->name ?></h1>
+    </div>
+    <div class="modal-body">
+        <p>Er du sikker på medlemmet har betalt kontingent?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="button-primary close-modal">Luk</button>
+        <button class="button-primary payment-accepted-button" data-member="<?php echo $member->id; ?>">Accept betaling</button>
+    </div>
+</div>
+
+<div class="modal removePayedStatusModal small-modal hidden" role="dialog" data-modal="removePayedStatusModal">
+    <div class="modal-header">
+        <h1>Deaktiver betalings tilstand på medlem: <?php echo $member->name; ?></h1>
+    </div>
+    <div class="modal-body">
+        <p>Er du sikker på du vil deaktivere medlemmet?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="button-primary close-modal">Luk</button>
+        <button class="button-primary deactivate-member-payment" data-member="<?php echo $member->id; ?>">Deaktiver medlem</button>
+    </div>
+</div>
+
+<div class="modal editMemberModal hidden" role="dialog"">
+        <div class="modal-header">
+            <h1>Opdater medlem: <?php echo $member->name; ?></h1>
+        </div>
+        <div class="modal-body">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae quaerat, atque optio non, et rerum aspernatur sint necessitatibus iusto voluptatibus, ullam sequi explicabo a accusantium in dignissimos quasi eum dolor!</p>
+            <div class="validated-message hidden"></div>
+            <form action="" class="adminUpdateMemberForm">
+                <input type="hidden" name="member-id" id="member-id" value="<?php echo $member->id; ?>">
+                <div class="left-form">
+                    <div class="form-control name">
+                        <label for="member-name">Navn:</label>
+                        <div class="input">
+                            <input type="text" id="member-name" name="member_name" placeholder="indtast medlemsnavn" value="<?php echo $member->name; ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-control gamertag">
+                        <label for="member-gamertag">Gamertag:</label>
+                        <div class="input">
+                            <input type="text" id="member-gamertag" name="member_gamertag" placeholder="indtast gamertag" value="<?php echo $member->gamertag; ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-control email">
+                        <label for="member-email">
+                            E-mail:
+                        </label>
+                        <div class="input">
+                            <input type="email" name="member_email" id="member-email" placeholder="indtast email" value="<?php echo $member->email; ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-control phonenumber">
+                        <label for="member_phone">Telefonnr:</label>
+                        <div class="input">
+                            <input type="tel", name="member_phone", id="member-phone" value="12345678" value="<?php echo $member->phone; ?>" pattern="[0-9]{8}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-control birth">
+                        <label for="member-birthdate">
+                            Fødselsår
+                        </label>
+                        <div class="input">
+                            <input type="date" name="member_birthdate" id="member-birthdate" value="<?php echo date("dd/mm/yyyy", $member->birthyear); ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-control member-gender">
+                        <label for="member-gender">Vælg køn</label>
+                        <div class="input">
+                            <select name="member_gender" id="member-gender">
+                                <option value="<?php echo $member->gender ?>"><?php echo $member->gender; ?></option>
+                                <?php 
+                                    foreach(["mand", "kvinde", "andet"] as $gender) {
+                                        if( $gender == $member->gender ){
+                                            continue;
+                                        }
+                                        echo "<option value='" . $gender . "'>" . $gender . "</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-control member-number">
+                        <label for="member-number">Medlemsnummer</label>
+                        <div class="input">
+                            <input type="number" name="member_number" id="member-number" value="<?php echo $member->member_number; ?>" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="right-form">
+                    <h3>Adresse informationer</h3>
+                    <div class="form-control address">
+                        <label for="member-adress">Adresse</label>
+                        <div class="input">
+                            <input type="text" name="member_adress" id="member-address" value="<?php echo $member->address; ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-control zipcode">
+                        <label for="member-zipcode">Postnummer</label>
+                        <div class="input">
+                            <input type="text" name="member_zipcode" id="member-zipcode" value="<?php echo $member->zipcode; ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-control town">
+                        <label for="member-town">Bynavn:</label>
+                        <div class="input">
+                            <input type="text" name="member_town" id="member-town" value="<?php echo $member->city; ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-control municipality">
+                        <label for="member-municipality">Komunne:</label>
+                        <div class="input">
+                            <input type="text" name="member_municipality" id="member-municipality" value="<?php echo $member->municipality ?>" required>
+                        </div>
+                    </div><br>
+
+                    <h3>Vælg medlemsskab</h3>
+                    <div class="form-control member-membership">
+                        <div class="input">
+                            <select name="member_membership" id="member-membership">
+                                <option value="<?php echo $member->membership ?>"><?php echo $membership->name ?></option>
+                                <?php 
+                                    foreach($memberships as $membership) 
+                                    {
+                                        if( $membership->id !== $member->membership) {
+                                            ?> <option value="<?php echo $membership->id ?>"><?php echo $membership->name; ?></option> <?php
+                                        }
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-control member-auto-renew">
+                        <div class="input">
+                            <label for="member-renew">Ja</label>
+                            <input type="radio" name="member_autorenew" id="member-renew" value="1" <?php if($member->auto_renew == 1) {echo "checked='checked'";} else { echo '';} ?>>
+                            <label for="member-renew">Nej</label>
+                            <input type="radio" name="member_autorenew" id="member-renew" value="0" <?php if($member->auto_renew == 0) {echo "checked='checked'";} else { echo '';}?>>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        <div class="modal-footer">
+            <button class="button-primary close-modal">Luk <span class="dashicons dashicons-no"></span></button>
+            <button class="button-primary submit-update-member">Opdater Medlem<span class="dashicons dashicons-edit"></span></button>
+        </div>
+    </div>
+<div class="overlay hidden"></div>

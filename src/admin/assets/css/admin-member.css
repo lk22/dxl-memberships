@@ -1,0 +1,132 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+ 
+body.toplevel_page_dxl-members{
+    font-family: "Nunito Sans", sans-serif;
+}
+
+body.toplevel_page_dxl-members #wpcontent{
+    padding-left: 0;
+}
+
+.dxl-admin-members .content,
+.dxl-admin-members .header{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+.dxl-admin-members h1,
+.dxl-admin-members h2,
+.dxl-admin-members h3,
+.dxl-admin-members h4,
+.dxl-admin-members h5{
+    margin: 0;
+}
+
+.dxl-admin-members .header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    top: 30px;
+    justify-content: space-between;
+}
+
+.dxl-admin-members .content {
+    margin-top: 20px;
+}
+
+.dxl-admin-members .searchbar{
+    position:fixed;
+    height: 100vh;
+    width: 40%;
+    background: #f2f2f2;
+    color: #000;
+    right: 0;
+    top: 30px;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    transition-duration: 0.3s;
+    padding: 2rem;
+    box-shadow: 0px 0px 5px 0px black;
+}
+
+.dxl-admin-members .searchbar.closed{
+    right: -100%;
+}
+
+.dxl-admin-members .searchbar form .form-group {
+    margin-bottom: 0.5rem;
+}
+
+.dxl-admin-members .content .details{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.dxl-admin-members .content .searchbar .search-member-list{
+    overflow-y:scroll;
+}
+
+.dxl-admin-members .content .searchbar .search-member-list .result{
+    border-bottom: 1px solid #000;
+    margin-bottom: 10px;
+    padding: 10px 0px;
+}
+
+.dxl-admin-members .content .details .left-details,
+.dxl-admin-members .content .details .right-details {
+    width: calc(100% / 2);
+}
+
+.dxl-admin-members.member-details-container .member-details{
+    color: #000;
+    border-radius: 5px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background:rgba(214, 212, 212, 0.2);
+    border: 1px solid rgba(214, 212, 212, 1);
+    padding: 1rem;
+}
+
+.dxl-admin-members.member-details-container .member-details .right-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.dxl-admin-members.member-details-container .member-details {
+    display:flex;
+}
+
+.dxl-admin-members.member-details-container .member-details .left-details h1{
+    margin: 0.5rem 0rem;
+}
+
+.dxl-admin-members.member-details-container .member-details .left-details,
+.dxl-admin-members.member-details-container .member-details .right-details {
+    width: calc(100% / 2);
+}
+
+.dxl-admin-members.member-details-container .member-details button{
+    margin-top: 0.75rem;
+}
+
+/*
+* components
+*/
+
+/* label component */
+.status-label{
+    height: 30px;
+    background: #f1f1f1;
+    display:flex;
+    align-items: center;
+    padding-left: 1rem;
+}
+
+.status-label.danger{
+    background: red;
+}
