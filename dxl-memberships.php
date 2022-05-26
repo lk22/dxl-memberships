@@ -10,7 +10,7 @@
 if( !defined('ABSPATH') ) {exit;}
 
 require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
-require_once ABSPATH . "wp-content/plugins/dxl-core/PhpSpreadsheet/vendor/autoload.php";
+require_once ABSPATH . "wp-content/plugins/dxl-memberships/PhpSpreadsheet/vendor/autoload.php";
 
 use DxlMembership\Classes\Actions\MemberAction;
 use DxlMembership\Classes\Actions\MembershipAction;
