@@ -35,8 +35,8 @@ if( !class_exists('LookExpiredMemberships') ) {
         public function __construct()
         {
             $this->memberRepository = new MemberRepository();
-            if( $_GET['action'] == 'dxl_look_expired_memberships' ) {
-                $this->look_expired_memberships();
+            if( isset($_GET['action']) && $_GET["action"] == 'dxl_look_expired_memberships' ) {
+                $this->lookup_expired_memberships();
             }
         }
         
@@ -45,10 +45,12 @@ if( !class_exists('LookExpiredMemberships') ) {
          *
          * @return void
          */
-        private function look_expired_memberships()
+        private function lookup_expired_memberships()
         {
             $logger = new Core;
             $logger->getUtility('Logger');
+            
+            $logger->logCronReport('Running LookExpiredMemberships cron job, looking for expired memberships hold on...', 'memberships', 4);
 
             $members = $this->memberRepository
                 ->select([
@@ -56,16 +58,17 @@ if( !class_exists('LookExpiredMemberships') ) {
                     "name", 
                     "email", 
                     "membership", 
-                    "approved_date"
+                    "approved_date",
+                    "auto_renew"
                 ])->get();
+
+                
+
             $currentDate = date('d-m-Y');
             $fullYearExpiration = date('d-m-Y', strtotime('first day of next year'));
             $halvYearExpiration = date('d-m-Y', strtotime('last day of june'));
-            var_dump(["members" => $members]);
-            die();
 
             foreach ($members as $member) {
-
                 // validate if member is auto renewing
                 if( ! $member->auto_renew ) {
                     $membership = $this->membershipRepository->find($member->membership);
@@ -82,7 +85,7 @@ if( !class_exists('LookExpiredMemberships') ) {
                             'is_pending' => 1
                         ]);
                         
-                        $logger->log("Member {$member->id} is now deactivated due to remaining payment, with folloing membership: {$membership->name}", 'memberships');
+                        $logger->logCronReport("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 6 måneder", 'memberships', 4);
                         
                         $sendCanceledMail
                             ->setSubjet("Annulleret medlemskab")
@@ -101,7 +104,7 @@ if( !class_exists('LookExpiredMemberships') ) {
                             'is_pending' => 1
                         ]);
                         
-                        $logger->log("Member {$member->id} is now deactivated due to remaining payment, with folloing membership: {$membership->name}", 'memberships');
+                        $logger->logCronReport("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 12 måneder", 'memberships', 4);
                         
                         $sendCanceledMail
                             ->setSubjet("Annulleret medlemskab")
