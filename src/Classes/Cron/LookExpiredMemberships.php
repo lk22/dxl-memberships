@@ -50,11 +50,18 @@ if( !class_exists('LookExpiredMemberships') ) {
             $logger = new Core;
             $logger->getUtility('Logger');
 
-            $members = $this->memberRepository->all();
+            $members = $this->memberRepository
+                ->select([
+                    "id", 
+                    "name", 
+                    "email", 
+                    "membership", 
+                    "approved_date"
+                ])->get();
             $currentDate = date('d-m-Y');
             $fullYearExpiration = date('d-m-Y', strtotime('first day of next year'));
             $halvYearExpiration = date('d-m-Y', strtotime('last day of june'));
-            var_dump([$currentDate, $fullYearExpiration, $halvYearExpiration]);
+            var_dump(["members" => $members]);
             die();
 
             foreach ($members as $member) {
@@ -63,7 +70,7 @@ if( !class_exists('LookExpiredMemberships') ) {
                 if( ! $member->auto_renew ) {
                     $membership = $this->membershipRepository->find($member->membership);
                     $sendCanceledMail = new MembershipCanceled($member);
-                    
+
                     // if full year membership is expired
                     if (
                         $member->membership == 7 && 
