@@ -21,7 +21,7 @@ use DxlMembership\Classes\Actions\MemberAction;
 use DxlMembership\Classes\Actions\MembershipAction;
 use DXL\Classes\Core;
 
-use DxlMembership\Classes\Cron\LookExpiredMemberships;
+// use DxlMembership\Classes\Cron\LookExpiredMemberships;
 
 if( !class_exists('DXLMemberships') ) 
 {
@@ -32,7 +32,7 @@ if( !class_exists('DXLMemberships') )
     {
 
         protected $commands = [
-            'LookExpiredMemberships' => new LookExpiredMemberships(),
+            'LookExpiredMemberships' => 'DxlMembership\Classes\Cron\LookExpiredMemberships',
         ];
 
         /**
@@ -47,6 +47,7 @@ if( !class_exists('DXLMemberships') )
             add_shortcode('dxlMembershipForm', [$this, 'enqueueMembershipForm']);
             add_action('wp_before_admin_bar_render', [$this, 'registerAdminTopBarNavigation']);
             $this->validate_requirements();
+            $this->register_cron_tasks();
 
             add_action( 'wp_dashboard_setup', [$this, 'register_meta_boxes']);
         }
@@ -183,10 +184,16 @@ if( !class_exists('DXLMemberships') )
             require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/admin/views/widget/awaiting.php";
         }
 
-        public function register_cron_schedules($schedules)
+        /**
+         * register membership cron tasks
+         *
+         * @param [type] $schedules
+         * @return void
+         */
+        public function register_cron_tasks()
         {
             foreach($this->commands as $command) {
-                return $command;
+                return new $command;
             }
         }
 
