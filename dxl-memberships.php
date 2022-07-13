@@ -12,9 +12,16 @@ if( !defined('ABSPATH') ) {exit;}
 require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
 require_once ABSPATH . "wp-content/plugins/dxl-memberships/PhpSpreadsheet/vendor/autoload.php";
 
+/**
+ * TODO: Register CRON actions
+ * TODO: Register CRON action for daily looking for memberships to be expired
+ */
+
 use DxlMembership\Classes\Actions\MemberAction;
 use DxlMembership\Classes\Actions\MembershipAction;
 use DXL\Classes\Core;
+
+use DxlMembership\Classes\Cron\LookExpiredMemberships;
 
 if( !class_exists('DXLMemberships') ) 
 {
@@ -23,6 +30,11 @@ if( !class_exists('DXLMemberships') )
      */
     class DXLMemberships 
     {
+
+        protected $commands = [
+            'LookExpiredMemberships' => new LookExpiredMemberships(),
+        ];
+
         /**
          * Plugin constructor
          */
@@ -169,6 +181,13 @@ if( !class_exists('DXLMemberships') )
         {
             $members = $this->member->getAwaitingMembers();
             require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/admin/views/widget/awaiting.php";
+        }
+
+        public function register_cron_schedules($schedules)
+        {
+            foreach($this->commands as $command) {
+                return $command;
+            }
         }
 
         /**
