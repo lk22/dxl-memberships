@@ -475,6 +475,7 @@
                 $this->dxl->response('member', [
                     "response" => "Medlem er aktiveret"
                 ]);
+                
                 $this->dxl->log("Member payment status updated successfully", 'memberships');
 
                 wp_die();

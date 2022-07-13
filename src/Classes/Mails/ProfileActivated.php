@@ -31,12 +31,28 @@ if( !class_exists('ProfileActivated') )
          */
         public function send()
         {
-            $this->setView('dxl-memberships/src/admin/views/mails/profile-activated-mail.php');
             add_filter('wp_mail_content_type', [$this, 'setContentType']);
-            $send = wp_mail($this->email, $this->getSubject(), file_get_contents($this->view), $this->getHeaders(), $this->getAttachments());
+            $send = wp_mail($this->email, $this->getSubject(), $this->template(), $this->getHeaders(), $this->getAttachments());
             remove_filter('wp_mail_content_type', [$this, 'setContentType']);
         
             return $send;
+        }
+
+        /**
+         * mail template definition
+         */
+        protected function template() 
+        {
+            $template = "<h2>Kære " . $this->member->name . "</h2>";
+            $template .= "<p>Din profil er nu aktiveret, din profil giver dig en masse fordele.</p>";
+            $template .= "<ul>";
+            $template .= "<li>Du får dit helt eget administrations panel</li>";
+            $template .= "<li>hvor du kan tilføje events og andre aktiviteter som alle andre medlemmer kan deltage i.</li>";
+            $template .= "<li>Admininistrere dine egne bruger oplysninger såfremt dine data skulle ændres</li>";
+            $template .= "</ul>";
+            $template .= "<p>Du kan logge ind på din profil her: <a href='" . get_site_url() . "/profil/" . $this->member->id . "'>" . get_site_url() . "/profil/" . $this->member->id . "</a></p>";
+
+            return $template;
         }
     }
 }

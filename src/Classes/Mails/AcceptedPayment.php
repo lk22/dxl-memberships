@@ -1,23 +1,22 @@
 <?php 
-namespace DxlMembership\Classes\Mails;
+namespace Dxl\Classes\Mails;
 
 use Dxl\Classes\Abstracts\AbstractMailer as Mailer;
 
-if( !class_exists('SendRegisteredMember') )
-{
-    class SendRegisteredMember extends Mailer {
+if ( !class_exists('AcceptPayment') ) {
+    class AcceptPayment extends Mailer {
 
         /**
          * Member data
          *
-         * @var \DxlMembership\Classes\Member
+         * @var \Dxl\Classes\Member
          */
         public $member;
 
         /**
          * Constructor
          *
-         * @param \DxlMembershipClasses\Member $member
+         * @param \Dxl\Classes\Member $member
          */
         public function __construct($member)
         {
@@ -34,16 +33,17 @@ if( !class_exists('SendRegisteredMember') )
             add_filter('wp_mail_content_type', [$this, 'setContentType']);
             $mail = wp_mail($this->email, $this->subject, $this->template(), $this->headers, $this->attachments);
             remove_filter('wp_mail_content_type', [$this, 'setContentType']);
-        
+            
             return $mail;
         }
 
         /**
          * Mail template definition
-         * 
+         *
          * @return void
          */
-        protected function template() {
+        protected function template() 
+        {
             $template = "<h2>Kære " . $this->member->name . "</h2>\n\n";
             $template .= "<p>Du er nu registreret som medlem</p>\n";
             $template .= "<p>Vi byder dig velkommen i foreningen</p>\n";
@@ -60,7 +60,5 @@ if( !class_exists('SendRegisteredMember') )
             
             return $template;
         }
-    }
 }
-
 ?>

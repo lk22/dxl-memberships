@@ -31,12 +31,21 @@ if( !class_exists('ProfileDeactivated') )
          */
         public function send()
         {
-            $this->setView('dxl-memberships/src/admin/views/mails/profile-deactivated-mail.php');
             add_filter('wp_mail_content_type', [$this, 'setContentType']);
-            $mail = wp_mail($this->email, $this->subject, file_get_contents($this->view), $this->headers, $this->attachments);
+            $mail = wp_mail($this->email, $this->subject, $this->template(), $this->headers, $this->attachments);
             remove_filter('wp_mail_content_type', [$this, 'setContentType']);
             
             return $mail;
+        }
+
+        protected function template() 
+        {
+            $template = "<h2>Kære " . $this->member->name . "</h2>\n\n";
+            $template .= "<p>Vi har deaktiveret din profil pga mangel på medlemsskab</p>\n";
+            $template .= "<p>Skulle du ønske og fortsætte med at bruge din administrations profil</p>\n";
+            $template .= "<p>Vil vi bede om at ansøge om et nyt medlemsskab</p>\n";
+
+            return $template;
         }
     }
 }
