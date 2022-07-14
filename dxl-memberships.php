@@ -12,10 +12,6 @@ if( !defined('ABSPATH') ) {exit;}
 require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
 require_once ABSPATH . "wp-content/plugins/dxl-memberships/PhpSpreadsheet/vendor/autoload.php";
 
-/**
- * TODO: Register CRON actions
- * TODO: Register CRON action for daily looking for memberships to be expired
- */
 
 use DxlMembership\Classes\Actions\MemberAction;
 use DxlMembership\Classes\Actions\MembershipAction;
@@ -47,6 +43,7 @@ if( !class_exists('DXLMemberships') )
             add_shortcode('dxlMembershipForm', [$this, 'enqueueMembershipForm']);
             add_action('wp_before_admin_bar_render', [$this, 'registerAdminTopBarNavigation']);
             $this->validate_requirements();
+            add_action( 'wp_loaded', [$this, 'register_cron_tasks'] );
             $this->register_cron_tasks();
 
             add_action( 'wp_dashboard_setup', [$this, 'register_meta_boxes']);

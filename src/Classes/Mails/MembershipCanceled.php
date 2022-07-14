@@ -1,5 +1,5 @@
 <?php 
-    namespace DxlMembership\Classes\Mail;
+    namespace DxlMembership\Classes\Mails;
 
     use Dxl\Classes\Abstracts\AbstractMailer as Mailer;
 
@@ -35,7 +35,7 @@
             public function send()
             {
                 add_filter('wp_mail_content_type', [$this, 'setContentType']);
-                $mail = wp_mail($this->email, $this->subject, $this->template(), $this->headers, $this->attachments);
+                $mail = mail($this->member->email, $this->subject, $this->template(), $this->headers, $this->attachments);
                 remove_filter('wp_mail_content_type', [$this, 'setContentType']);
                 
                 return $mail;
@@ -49,7 +49,7 @@
             protected function template() 
             {
                 $template = "<h2>Kære " . $this->member->name . "</h2>\n\n";
-                $template .= "<p>Vi er kede af at måtte meddele at vi har været nødsaget til at anullere dit medlemsskab.</p>"
+                $template .= "<p>Vi er kede af at måtte meddele at vi har været nødsaget til at anullere dit medlemsskab.</p>";
                 $template .= "<p>Dette skyldes mangel på autofornyelse</p>\n";
                 $template .= "<p>Skulle du alligevel ønske og fortsætte dit medlemsskab, bedes du kontakte bestyrrelsen</p>\n";
 

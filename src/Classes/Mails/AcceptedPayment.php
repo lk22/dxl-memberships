@@ -1,5 +1,5 @@
 <?php 
-namespace Dxl\Classes\Mails;
+namespace DxlMembership\Classes\Mails;
 
 use Dxl\Classes\Abstracts\AbstractMailer as Mailer;
 

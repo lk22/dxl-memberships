@@ -47,72 +47,65 @@ if( !class_exists('LookExpiredMemberships') ) {
          */
         private function lookup_expired_memberships()
         {
-            $logger = new Core;
-            $logger->getUtility('Logger');
+            $logger = (new Core())->getUtility('Logger');
             
-            $logger->logCronReport('Running LookExpiredMemberships cron job, looking for expired memberships hold on...', 'memberships', 4);
+            $logger->logCronReport('Running LookExpiredMemberships cron job, looking for expired memberships hold on...', 4);
 
             $members = $this->memberRepository
                 ->select([
                     "id", 
                     "name", 
-                    "email", 
+                    "email",
+                    "gamertag", 
                     "membership", 
                     "approved_date",
                     "auto_renew"
-                ])->get();
-
-                
+                ])->where('auto_renew', 0)->get();
 
             $currentDate = date('d-m-Y');
             $fullYearExpiration = date('d-m-Y', strtotime('first day of next year'));
             $halvYearExpiration = date('d-m-Y', strtotime('last day of june'));
 
             foreach ($members as $member) {
-                // validate if member is auto renewing
-                if( ! $member->auto_renew ) {
-                    $membership = $this->membershipRepository->find($member->membership);
-                    $sendCanceledMail = new MembershipCanceled($member);
+                
 
-                    // if full year membership is expired
-                    if (
-                        $member->membership == 7 && 
-                        $currentDate > $fullYearExpiration &&
-                        date('d-m-Y', $member->approved_date) > $fullYearExpiration
-                    ) {
-                        $this->memberRepository->update($member->id, [
-                            'is_payed' => 0,
-                            'is_pending' => 1
-                        ]);
-                        
-                        $logger->logCronReport("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 6 måneder", 'memberships', 4);
-                        
-                        $sendCanceledMail
-                            ->setSubjet("Annulleret medlemskab")
-                            ->setReceiver($member->email)
-                            ->send();
-                    }
+                // if full year membership is expired
+                if (
+                    $member->membership == 7 && 
+                    $currentDate > $fullYearExpiration &&
+                    date('d-m-Y', $member->approved_date) > $fullYearExpiration
+                ) {
+                    $this->memberRepository->update([
+                        'is_payed' => 0,
+                        'is_pending' => 1
+                    ], $member->id);
+                    
+                    $logger->logCronReport("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 6 måneder", 4);
+                    
+                    $sendCanceledMail = (new MembershipCanceled($member))
+                        ->setSubject("Annulleret medlemskab")
+                        ->setReciever($member->email)
+                        ->send();
+                }
 
-                    // if half year membership is expired
-                    if (
-                        $member->membership == 6 && 
-                        $currentDate > $halvYearExpiration &&
-                        date('d-m-Y', $member->approved_date) > $halvYearExpiration
-                    ) {
-                        $this->memberRepository->update($member->id, [
-                            'is_payed' => 0,
-                            'is_pending' => 1
-                        ]);
-                        
-                        $logger->logCronReport("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 12 måneder", 'memberships', 4);
-                        
-                        $sendCanceledMail
-                            ->setSubjet("Annulleret medlemskab")
-                            ->setReceiver($member->email)
-                            ->send();
-                    }
-                }  
-
+                // if half year membership is expired
+                if (
+                    $member->membership == 6 && 
+                    $currentDate > $halvYearExpiration &&
+                    date('d-m-Y', $member->approved_date) > $halvYearExpiration
+                ) {
+                    $this->memberRepository->update([
+                        'is_payed' => 0,
+                        'is_pending' => 1
+                    ], $member->id);
+                    
+                    $logger->logCronReport("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 12 måneder", 4);
+                    
+                    $sendCanceledMail = (new MembershipCanceled($member))
+                        ->setSubject("Annulleret medlemskab")
+                        ->setReciever($member->email)
+                        ->send();
+                }
             }
         }
     }
