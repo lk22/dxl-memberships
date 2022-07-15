@@ -47,6 +47,7 @@ if( !class_exists('LookExpiredMemberships') ) {
          */
         private function lookup_expired_memberships()
         {
+            
             $logger = (new Core())->getUtility('Logger');
             
             $logger->logCronReport('Running LookExpiredMemberships cron job, looking for expired memberships hold on...', 4);

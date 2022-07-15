@@ -43,7 +43,7 @@ if( !class_exists('DXLMemberships') )
             add_shortcode('dxlMembershipForm', [$this, 'enqueueMembershipForm']);
             add_action('wp_before_admin_bar_render', [$this, 'registerAdminTopBarNavigation']);
             $this->validate_requirements();
-            add_action( 'wp_loaded', [$this, 'register_cron_tasks'] );
+            add_action( 'plugins_loaded', [$this, 'register_cron_tasks'] );
             $this->register_cron_tasks();
 
             add_action( 'wp_dashboard_setup', [$this, 'register_meta_boxes']);

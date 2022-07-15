@@ -2,6 +2,7 @@
     namespace DxlMembership\Classes\Mails;
 
     use Dxl\Classes\Abstracts\AbstractMailer as Mailer;
+    require ABSPATH . "wp-load.php";
 
     if ( !defined('ABSPATH') ) {
         exit;
@@ -34,13 +35,14 @@
              */
             public function send()
             {
+                require ABSPATH . "wp-includes/pluggable.php";
+
                 add_filter('wp_mail_content_type', [$this, 'setContentType']);
-                $mail = mail($this->member->email, $this->subject, $this->template(), $this->headers, $this->attachments);
+                $mail = \wp_mail($this->member->email, $this->subject, $this->template(), $this->headers, $this->attachments);
                 remove_filter('wp_mail_content_type', [$this, 'setContentType']);
                 
                 return $mail;
             }
-
             /**
              * Mail template definition
              *
