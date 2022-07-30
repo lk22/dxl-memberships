@@ -2,7 +2,7 @@
     <div class="header">
         <h1 class="headline">Kontingenter</h1>
         <div class="actions">
-            <button class="button-primary create-new-membership-btn">Opret kontingent <span class="dashicons dashicons-plus"></span></button>
+            <button class="button-primary create-new-membership-btn" data-bs-toggle="modal" data-bs-target="#createMembershipsModal">Opret kontingent <span class="dashicons dashicons-plus"></span></button>
         </div>
     </div>
     <div class="content">
@@ -41,6 +41,25 @@
             <?php
         } ?>
     </div>
+
+    <div class="modal face" id="createMembershipsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="modal createMembershipsModal hidden" role="dialog">
         <div class="modal-header">

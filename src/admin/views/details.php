@@ -4,7 +4,7 @@
         <div class="actions">
             <a href="<?php echo generate_dxl_admin_page_url('dxl-members'); ?>" class="button-primary">Gå tilbage</a>
             <button class="button-primary search-members-btn">Søg <span class="dashicons dashicons-filter"></span></button>
-            <a href="#" class="button-primary open-edit-member-modal-btn">Rediger medlem <span class="dashicons dashicons-edit"></span></a>
+            <a href="#" class="button-primary open-edit-member-modal-btn" data-bs-toggle="modal" data-bs-target="#editMemberModal">Rediger medlem <span class="dashicons dashicons-edit"></span></a>
         </div>
     </div>
     <div class="content">
@@ -35,7 +35,7 @@
         </div>
         <div class="member-details details">
             <div class="left-details">
-                <h1>Medlems informationer</h1>
+                <h1 class="fw-normal">Medlems informationer</h1>
                 <?php
                     foreach([
                         "Medlemsnummer" => $member->member_number,
@@ -49,16 +49,13 @@
                     ] as $key => $value) {
                         ?>
                             <div class="member-<?php echo $key ?>" style="margin-bottom: 10px">
-                                <h2><?php echo $key; ?>: <small class="key-<?php echo $key; ?>"><?php echo $value; ?></small></h2> 
+                                <h4><?php echo $key; ?>: <small class="key-<?php echo $key; ?>"><?php echo $value; ?></small></h4> 
                             </div>
                         <?php
                     }
                 ?>
             </div>
             <div class="right-details">
-                <div class="membership">
-                    <h3>Valgt medlemsskab: <?php echo $membership->name ?></h3>
-                </div>
                 <div class="approved">
                     <?php
                         if( $member->approved_date != 0 ){
@@ -148,14 +145,14 @@
                                         }
                                     }
                                 ?>
-                                <button class="deactivate-member-button button-primary" data-action="deactivate-member" data-member="<?php echo $member->id; ?>">Deaktiver medlem</button>
+                                <button class="deactivate-member-button button-primary" data-bs-toggle="modal" data-bs-target="#removePayedStatusModal" data-action="deactivate-member" data-member="<?php echo $member->id; ?>">Deaktiver medlem</button>
                             </div>
                         <?php
                     }
 
                     if( !$member->is_payed ) {
                         ?>
-                            <button class="button-primary has-payed-button">Har medlemmet betalt?</button>
+                            <button class="button-primary has-payed-button" data-bs-toggle="modal" data-bs-target="#hasPayedModal">Har medlemmet betalt?</button>
                         <?php
                     }
                 ?>
@@ -165,85 +162,99 @@
     </div>
 </div>
 
-<div class="modal hasPayedModal small-modal hidden" role="dialog" data-modal="hasPayedModal">
-    <div class="modal-header">
-        <h1>Accepter betaling på følgende medlem <?php echo $member->name ?></h1>
-    </div>
-    <div class="modal-body">
+<div class="modal fade modal-lg" id="hasPayedModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Accepter betaling på følgende medlem <?php echo $member->name ?></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
         <p>Er du sikker på medlemmet har betalt kontingent?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-primary me-2" data-bs-dismiss="modal">Luk</button>
+        <button type="button" class="button-primary payment-accepted-button" data-member="<?php echo $member->id; ?>" >Accepter betaling</button>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button class="button-primary close-modal">Luk</button>
-        <button class="button-primary payment-accepted-button" data-member="<?php echo $member->id; ?>">Accept betaling</button>
-    </div>
+  </div>
 </div>
 
-<div class="modal removePayedStatusModal small-modal hidden" role="dialog" data-modal="removePayedStatusModal">
-    <div class="modal-header">
-        <h1>Deaktiver betalings tilstand på medlem: <?php echo $member->name; ?></h1>
+<div class="modal fade modal-lg" id="removePayedStatusModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Fjern medlemsskab</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Er du sikker på du vil fjerne kontingent fra <?php echo $member->name; ?></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-primary me-2" data-bs-dismiss="modal">Luk</button>
+        <button type="button" class="button-primary payment-accepted-button" data-member="<?php echo $member->id; ?>" >fjern kontingent</button>
+      </div>
     </div>
-    <div class="modal-body">
-        <p>Er du sikker på du vil deaktivere medlemmet?</p>
-    </div>
-    <div class="modal-footer">
-        <button class="button-primary close-modal">Luk</button>
-        <button class="button-primary deactivate-member-payment" data-member="<?php echo $member->id; ?>">Deaktiver medlem</button>
-    </div>
+  </div>
 </div>
 
-<div class="modal editMemberModal hidden" role="dialog"">
-        <div class="modal-header">
-            <h1>Opdater medlem: <?php echo $member->name; ?></h1>
-        </div>
-        <div class="modal-body">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae quaerat, atque optio non, et rerum aspernatur sint necessitatibus iusto voluptatibus, ullam sequi explicabo a accusantium in dignissimos quasi eum dolor!</p>
+<div class="modal fade modal-xl" id="editMemberModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Rediger medlem</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae quaerat, atque optio non, et rerum aspernatur sint necessitatibus iusto voluptatibus, ullam sequi explicabo a accusantium in dignissimos quasi eum dolor!</p>
             <div class="validated-message hidden"></div>
             <form action="" class="adminUpdateMemberForm">
+                <div class="row">
                 <input type="hidden" name="member-id" id="member-id" value="<?php echo $member->id; ?>">
-                <div class="left-form">
-                    <div class="form-control name">
+                <div class="left-form col-12 col-md-6">
+                    <div class="form-group name">
                         <label for="member-name">Navn:</label>
                         <div class="input">
-                            <input type="text" id="member-name" name="member_name" placeholder="indtast medlemsnavn" value="<?php echo $member->name; ?>" required>
+                            <input type="text" id="member-name" class="form-control" name="member_name" placeholder="indtast medlemsnavn" value="<?php echo $member->name; ?>" required>
                         </div>
                     </div>
 
-                    <div class="form-control gamertag">
+                    <div class="form-group gamertag">
                         <label for="member-gamertag">Gamertag:</label>
                         <div class="input">
-                            <input type="text" id="member-gamertag" name="member_gamertag" placeholder="indtast gamertag" value="<?php echo $member->gamertag; ?>" required>
+                            <input type="text" id="member-gamertag" class="form-control" name="member_gamertag" placeholder="indtast gamertag" value="<?php echo $member->gamertag; ?>" required>
                         </div>
                     </div>
 
-                    <div class="form-control email">
+                    <div class="form-group email">
                         <label for="member-email">
                             E-mail:
                         </label>
                         <div class="input">
-                            <input type="email" name="member_email" id="member-email" placeholder="indtast email" value="<?php echo $member->email; ?>" required>
+                            <input type="email" name="member_email" class="form-control" id="member-email" placeholder="indtast email" value="<?php echo $member->email; ?>" required>
                         </div>
                     </div>
 
-                    <div class="form-control phonenumber">
+                    <div class="form-group phonenumber">
                         <label for="member_phone">Telefonnr:</label>
                         <div class="input">
-                            <input type="tel", name="member_phone", id="member-phone" value="12345678" value="<?php echo $member->phone; ?>" pattern="[0-9]{8}" required>
+                            <input type="tel", name="member_phone" class="form-control" id="member-phone" value="12345678" value="<?php echo $member->phone; ?>" pattern="[0-9]{8}" required>
                         </div>
                     </div>
 
-                    <div class="form-control birth">
+                    <div class="form-group birth">
                         <label for="member-birthdate">
                             Fødselsår
                         </label>
                         <div class="input">
-                            <input type="date" name="member_birthdate" id="member-birthdate" value="<?php echo date("dd/mm/yyyy", $member->birthyear); ?>" required>
+                            <input type="date" name="member_birthdate" class="form-control" id="member-birthdate" value="<?php echo date("dd/mm/yyyy", $member->birthyear); ?>" required>
                         </div>
                     </div>
 
-                    <div class="form-control member-gender">
+                    <div class="form-group member-gender">
                         <label for="member-gender">Vælg køn</label>
                         <div class="input">
-                            <select name="member_gender" id="member-gender">
+                            <select name="member_gender" class="form-control" id="member-gender">
                                 <option value="<?php echo $member->gender ?>"><?php echo $member->gender; ?></option>
                                 <?php 
                                     foreach(["mand", "kvinde", "andet"] as $gender) {
@@ -257,48 +268,48 @@
                         </div>
                     </div>
 
-                    <div class="form-control member-number">
+                    <div class="form-group member-number">
                         <label for="member-number">Medlemsnummer</label>
                         <div class="input">
-                            <input type="number" name="member_number" id="member-number" value="<?php echo $member->member_number; ?>" required>
+                            <input type="number" class="form-control" name="member_number" id="member-number" value="<?php echo $member->member_number; ?>" required>
                         </div>
                     </div>
 
                 </div>
-                <div class="right-form">
+                <div class="right-form col-12 col-md-6">
                     <h3>Adresse informationer</h3>
-                    <div class="form-control address">
+                    <div class="form-group address">
                         <label for="member-adress">Adresse</label>
                         <div class="input">
-                            <input type="text" name="member_adress" id="member-address" value="<?php echo $member->address; ?>" required>
+                            <input type="text" class="form-control" name="member_adress" id="member-address" value="<?php echo $member->address; ?>" required>
                         </div>
                     </div>
 
-                    <div class="form-control zipcode">
+                    <div class="form-group zipcode">
                         <label for="member-zipcode">Postnummer</label>
                         <div class="input">
-                            <input type="text" name="member_zipcode" id="member-zipcode" value="<?php echo $member->zipcode; ?>" required>
+                            <input type="text" class="form-control" name="member_zipcode" id="member-zipcode" value="<?php echo $member->zipcode; ?>" required>
                         </div>
                     </div>
 
-                    <div class="form-control town">
+                    <div class="form-group town">
                         <label for="member-town">Bynavn:</label>
                         <div class="input">
-                            <input type="text" name="member_town" id="member-town" value="<?php echo $member->city; ?>" required>
+                            <input type="text" class="form-control" name="member_town" id="member-town" value="<?php echo $member->city; ?>" required>
                         </div>
                     </div>
 
-                    <div class="form-control municipality">
+                    <div class="form-group municipality">
                         <label for="member-municipality">Komunne:</label>
                         <div class="input">
-                            <input type="text" name="member_municipality" id="member-municipality" value="<?php echo $member->municipality ?>" required>
+                            <input type="text" class="form-control" name="member_municipality" id="member-municipality" value="<?php echo $member->municipality ?>" required>
                         </div>
                     </div><br>
 
                     <h3>Vælg medlemsskab</h3>
-                    <div class="form-control member-membership">
+                    <div class="form-group member-membership">
                         <div class="input">
-                            <select name="member_membership" id="member-membership">
+                            <select name="member_membership" class="form-control" id="member-membership">
                                 <option value="<?php echo $member->membership ?>"><?php echo $membership->name ?></option>
                                 <?php 
                                     foreach($memberships as $membership) 
@@ -312,7 +323,7 @@
                         </div>
                     </div>
 
-                    <div class="form-control member-auto-renew">
+                    <div class="form-group member-auto-renew">
                         <div class="input">
                             <label for="member-renew">Ja</label>
                             <input type="radio" name="member_autorenew" id="member-renew" value="1" <?php if($member->auto_renew == 1) {echo "checked='checked'";} else { echo '';} ?>>
@@ -321,12 +332,14 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </form>
             
-        </div>
-        <div class="modal-footer">
-            <button class="button-primary close-modal">Luk <span class="dashicons dashicons-no"></span></button>
-            <button class="button-primary submit-update-member">Opdater Medlem<span class="dashicons dashicons-edit"></span></button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-primary me-2" data-bs-dismiss="modal">Luk</button>
+        <button class="button-primary submit-update-member">Opdater Medlem<span class="dashicons dashicons-edit"></span></button>
+      </div>
     </div>
-<div class="overlay hidden"></div>
+  </div>
+</div>

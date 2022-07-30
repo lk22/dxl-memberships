@@ -60,5 +60,6 @@ if ( !class_exists('AcceptPayment') ) {
             
             return $template;
         }
+    }
 }
 ?>
