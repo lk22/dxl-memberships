@@ -323,7 +323,7 @@
                     $this->dxl->response('member', [
                         "error" => true,
                         "response" => "Noget gik galt, kunne ikke oprette medlem"
-                    ]);
+                    ]); 
                     $logger->log("Failed to create new member from frontend, " . __METHOD__, 'memberships');
                     wp_die();
                 }
