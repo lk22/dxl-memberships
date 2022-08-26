@@ -59,7 +59,7 @@
                 <div class="approved">
                     <?php
                         if( $member->approved_date != 0 ){
-                            echo "<p>Betaling godkendt: " . date('d-m-Y H:i', strtotime($member->approved_date)) . "</p>";
+                            echo "<p>Betaling godkendt: " . date('d-m-Y H:i', $member->approved_date) . "</p>";
                         }
                     ?>
                 </div>
