@@ -593,7 +593,7 @@
                         $this->dxl->log("Triggering update action: 'activate-profile' " . __METHOD__, "memberships");
                         $activated = $this->service->activateMemberProfile();
 
-                        if( $activated == false ) {
+                        if( $activated == false or $activated == 0 ) {
                             $this->dxl->response('member', [
                                 "error" => true,
                                 "response" => "Noget gik galt, kunne ikke aktivere " . $member->gamertag . "'s profil",

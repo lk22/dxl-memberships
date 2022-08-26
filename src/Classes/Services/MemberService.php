@@ -244,7 +244,7 @@ if(!class_exists('MemberService'))
                 "theme" => "default"
             ]);
 
-            return (!$activated || $activated == 0) ? true : false;
+            return $activated;
         }
 
         /**
