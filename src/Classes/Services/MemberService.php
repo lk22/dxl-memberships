@@ -79,7 +79,8 @@ if(!class_exists('MemberService'))
         {
             global $wpdb;
             return $wpdb->get_row(
-                $wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "members WHERE id IN(%d)",
+                $wpdb->prepare(
+                    "SELECT * FROM " . $wpdb->prefix . "members WHERE id IN(%d)",
                     (int) $member
                 ),
             );

@@ -448,12 +448,14 @@
                 }
 
                 $member = $this->service->getMemberById($member_id);
+                
                 $this->dxl->log("Activating member " . $member->gamertag . " " . __METHOD__, "memberships");
-                $user = wp_create_user($member->gamertag, wp_hash_password( $member->gamertag ), $member->email);
+                $user = wp_create_user($member->gamertag, $member->gamertag, $member->email);
+            
                 if( isset($user->errors) ) {
                     $this->dxl->response('member', [
                         "error" => true,
-                        "response" => "bruger oprettelse fejlede, : " . $user->errors->existing_user_login[0]
+                        "response" => "bruger oprettelse fejlede, bruger eksistere allerede"
                     ]);
 
                     $this->dxl->log("tried to create user for member: " .$member->name ."(" . $member->gamertag . ") from action: " . __METHOD__ . " " . wp_json_encode($user), 'memberships', 2);
@@ -502,7 +504,6 @@
 
                 $userRemoved = wp_delete_user($member->user_id);
                 // @TODO: fix user detaching while deactivating members
-                echo wp_json_encode($userRemoved); wp_die();
                 if( !$userRemoved ) 
                 {
                     $this->dxl->response('member', [

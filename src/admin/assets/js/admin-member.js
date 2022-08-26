@@ -278,7 +278,8 @@
                             const json = JSON.parse(response);
                             const hasError = self.core.checkForResponseError(json.member);
 
-                            if( hasError ) {
+                            if( json.member.error === true ) {
+
                                 $.toast({
                                     title: "Fejl",
                                     text: json.member.response,
