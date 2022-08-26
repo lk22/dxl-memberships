@@ -1,6 +1,6 @@
 <div class="dxl-admin-members member-details-container">
     <div class="header">
-        <h2><?php echo $member->name; ?> <span><small>(<?php echo $membership->name ?>)</small></span></h2>
+        <h2><?php echo $member->name; ?> <span><small>(<?php echo $membership->name ?? '' ?>)</small></span></h2>
         <div class="actions">
             <a href="<?php echo generate_dxl_admin_page_url('dxl-members'); ?>" class="button-primary">Gå tilbage</a>
             <button class="button-primary search-members-btn">Søg <span class="dashicons dashicons-filter"></span></button>
