@@ -192,7 +192,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="button-primary me-2" data-bs-dismiss="modal">Luk</button>
-        <button type="button" class="button-primary payment-accepted-button" data-member="<?php echo $member->id; ?>" >fjern kontingent</button>
+        <button type="button" class="button-primary payment-removed-button" data-member="<?php echo $member->id; ?>" >fjern kontingent</button>
       </div>
     </div>
   </div>

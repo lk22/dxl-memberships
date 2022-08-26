@@ -514,7 +514,7 @@
                     wp_die();
                 }
                 
-                // $deactivated = $this->service->deactivateMember($member->id);
+                $deactivated = $this->service->deactivateMember($member->id);
 
                 $this->dxl->log("Deactivating member: " . $member->name . " in action " . __METHOD__, 'memberships', 1);
 

@@ -320,10 +320,10 @@
                     e.preventDefault();
                     self.core.openModal('.removePayedStatusModal');
 
-                    $('.deactivate-member-payment').click((e) => {
+                    $('.payment-removed-button').click((e) => {
                         e.preventDefault();
 
-                        const member = $(".deactivate-member-payment").data('member');
+                        const member = $(".payment-removed-button").data('member');
                         self.core.request.data.member = {
                             id: member
                         };

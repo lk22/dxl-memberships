@@ -198,7 +198,7 @@ if(!class_exists('MemberService'))
             global $wpdb;
 
             $updated = $wpdb->update($wpdb->prefix . "members", [
-                "is_payed" => 1,
+                "is_payed" => 0,
                 "user_id" => 0
             ], [$this->primaryIdentifier => $member]);
 
