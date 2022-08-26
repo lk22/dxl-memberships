@@ -399,7 +399,6 @@ if(!class_exists('MemberService'))
             $sheet->getStyle('A1:M1')->applyFromArray($styles);
             $notPayedMembersSpreadsheet->getStyle('A1:M1')->applyFromArray($styles);
 
-          
             $notPayedMembersSpreadsheet->setCellValue("A1", "DXL afventende medlemmer")->getColumnDimension("A")->setAutoSize(true);
             $notPayedMembersSpreadsheet->setCellValue("A2", "Navn")->getColumnDimension("A")->setAutoSize(true);
             $notPayedMembersSpreadsheet->setCellValue("B2", "Medlemsnummer")->getColumnDimension("B")->setAutoSize(true);
