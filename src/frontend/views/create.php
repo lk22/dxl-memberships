@@ -96,7 +96,7 @@
                         <?php 
                             foreach($memberships as $membership) 
                             {
-                                ?> <option value="<?php echo $membership->id ?>"><?php echo $membership->name; ?></option> <?php
+                                ?> <option value="<?php echo $membership->id ?>"><?php echo $membership->name; ?> (<?php echo $membership->price ?> DKK)</option> <?php
                             }
                         ?>
                     </select>
