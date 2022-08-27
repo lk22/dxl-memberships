@@ -1,6 +1,3 @@
-<?php 
-
-?>
 <div class="dxl dxl-admin-members members-list-container">
     <div class="header">
         <div class="logo">
@@ -43,7 +40,7 @@
             </div>
         </div>
         <?php if( $members ) { ?>
-        <h1>Betalte medlemmer <small>(<?php echo count($members) ?>)</small></h1>q
+        <h1>Betalte medlemmer <small>(<?php echo count($members) ?>)</small></h1>
         <br>
         <table class="widefat fixed striped">
             <thead>

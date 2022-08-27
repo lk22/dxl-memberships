@@ -12,6 +12,7 @@
                 <tr>
                     <th>Kontingent</th>
                     <th>længde</th>
+                    <th>pris</th>
                     <th></th>
                 </tr>
             </thead>
@@ -23,6 +24,9 @@
                                 <td><a href="<?php echo generate_dxl_subpage_url(['action' => 'details', 'id' => $membership->id]); ?>"><?php echo $membership->name; ?></a></td>
                                 <td>
                                     <?php echo $membership->length ?> måneder
+                                </td>
+                                <td>
+                                    <?php echo $membership->price ?> DKK
                                 </td>
                                 <td>
                                     <div class="actions">
@@ -55,8 +59,13 @@
                     <div class="form-group mb-4">
                         <input type="text" class="form-control" id="membership-name" placeholder="Kontingent navn" required>
                     </div>
+
+                    <div class="form-group mb-4">
+                        <input type="number" class="form-control" id="membership-length" placeholder="Varighed: antal måneder" required>
+                    </div>
+
                     <div class="form-group">
-                        <input type="number" class="form-control" id="membership-length" placeholder="Varighed" required>
+                        <input type="number" class="form-control" id="membership-price" placeholder="Kontingent pris" required>
                     </div>
                 </form>
             </div>

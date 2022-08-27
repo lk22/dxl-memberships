@@ -101,7 +101,7 @@ if(!class_exists('MembershipAction'))
             $logger = $this->dxl->getUtility('Logger');
             $logger->log("triggering action: " . __METHOD__, 'memberships');
             
-            if( ! $data->has('name') || ! $data->has('length') )
+            if( ! $data->has('name') || ! $data->has('length') || ! $data->has('price') )
             {
                 $this->dxl->response('membership', [
                     "error" => true,
@@ -112,8 +112,7 @@ if(!class_exists('MembershipAction'))
             }
 
             $created = $this->service->createMembership($membership);
-            // $created = $this->membershipRepository->create($membership);
-
+            
             if( $created < 1 ) {
                 $this->dxl->response('membership', [
                     "error" => true,

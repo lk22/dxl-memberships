@@ -811,7 +811,8 @@
                     e.preventDefault();
                     self.core.request.data.membership = {
                         name: self.container.find('#membership-name').val(),
-                        length: self.container.find('#membership-length').val()
+                        length: self.container.find('#membership-length').val(),
+                        price: self.container.find('#membership-price').val()
                     }
 
                     self.core.sendRequest('dxl_create_membership', 'POST', self.core.request.url, self.core.request.data, (response) => {
@@ -848,15 +849,63 @@
                     })
                 })
 
-                self.container.find('.delete-membership-button').each((index, item) => {
-                    $(item).click((e) => {
+                self.container.find('.delete-membership-button').each((index, button) => {
+                    console.log(button)
+                    const membership = $(button).data('membership');
+                    console.log(membership);
+
+                    $(button).click((e) => {
                         e.preventDefault();
-                        const membership = $(this).data('membership');
-                        console.log(membership)
-                    
+
                         self.core.request.data.membership = {
                             id: membership
                         };
+
+                        self.core.sendRequest('dxl_delete_membership', 'POST', self.core.request.url, self.core.request.data, (response) => {
+                            console.log(response);
+                        
+                            const json = JSON.parse(response).membership;
+                            const hasError = self.core.checkForResponseError(json);
+    
+                            if( hasError ) {
+                                $.toast({
+                                    title: "Fejl",
+                                    text: json.response,
+                                    icon: "error",
+                                    position: "bottom-right"
+                                });
+                                return false;
+                            }
+    
+                            $.toast({
+                                title: "Fejl",
+                                text: json.response,
+                                icon: "success",
+                                position: "bottom-right"
+                            });
+                            self.core.redirectToAction('memberships', {});
+    
+                        }, (error) => {console.log(error)}, () => {
+                            $.toast({
+                                text: "fjerner kontingent. vent venligst..",
+                                icon: "info",
+                                position: "bottom-right"
+                            });
+                        })
+                    })
+
+
+                })
+
+                // self.container.find('.delete-membership-button').each((index, item) => {
+                //     $(item).click((e) => {
+                        // e.preventDefault();
+                        // const membership = $(this).data('membership');
+                        // console.log(membership)
+                    
+                        // self.core.request.data.membership = {
+                        //     id: membership
+                        // };
     
                         // self.core.sendRequest('dxl_delete_membership', 'POST', self.core.request.url, self.core.request.data, (response) => {
                         //     console.log(response);
@@ -889,8 +938,8 @@
                         //         position: "bottom-right"
                         //     });
                         // })
-                    })
-                })
+                    // })
+                // })
             },
          }
 
