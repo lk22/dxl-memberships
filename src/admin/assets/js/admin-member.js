@@ -832,7 +832,7 @@
                         $.toast({
                             title: "Succes",
                             text: json.response,
-                            icon: "error",
+                            icon: "success",
                             position: "bottom-right"
                         });
                         self.core.closeModal();
@@ -848,45 +848,47 @@
                     })
                 })
 
-                self.container.find('.delete-membership-button').click((e) => {
-                    e.preventDefault();
-                    const membership = self.container.find('.delete-membership-button').data('membership');
-                    console.log(membership)
-
-                    self.core.request.data.membership = {
-                        id: membership
-                    };
-
-                    self.core.sendRequest('dxl_delete_membership', 'POST', self.core.request.url, self.core.request.data, (response) => {
-                        console.log(response);
+                self.container.find('.delete-membership-button').each((index, item) => {
+                    $(item).click((e) => {
+                        e.preventDefault();
+                        const membership = $(this).data('membership');
+                        console.log(membership)
                     
-                        const json = JSON.parse(response).membership;
-                        const hasError = self.core.checkForResponseError(json);
-
-                        if( hasError ) {
-                            $.toast({
-                                title: "Fejl",
-                                text: json.response,
-                                icon: "error",
-                                position: "bottom-right"
-                            });
-                            return false;
-                        }
-
-                        $.toast({
-                            title: "Fejl",
-                            text: json.response,
-                            icon: "error",
-                            position: "bottom-right"
-                        });
-                        self.core.redirectToAction('memberships', {});
-
-                    }, (error) => {console.log(error)}, () => {
-                        $.toast({
-                            text: "fjerner kontingent. vent venligst..",
-                            icon: "info",
-                            position: "bottom-right"
-                        });
+                        self.core.request.data.membership = {
+                            id: membership
+                        };
+    
+                        // self.core.sendRequest('dxl_delete_membership', 'POST', self.core.request.url, self.core.request.data, (response) => {
+                        //     console.log(response);
+                        
+                        //     const json = JSON.parse(response).membership;
+                        //     const hasError = self.core.checkForResponseError(json);
+    
+                        //     if( hasError ) {
+                        //         $.toast({
+                        //             title: "Fejl",
+                        //             text: json.response,
+                        //             icon: "error",
+                        //             position: "bottom-right"
+                        //         });
+                        //         return false;
+                        //     }
+    
+                        //     $.toast({
+                        //         title: "Fejl",
+                        //         text: json.response,
+                        //         icon: "error",
+                        //         position: "bottom-right"
+                        //     });
+                        //     self.core.redirectToAction('memberships', {});
+    
+                        // }, (error) => {console.log(error)}, () => {
+                        //     $.toast({
+                        //         text: "fjerner kontingent. vent venligst..",
+                        //         icon: "info",
+                        //         position: "bottom-right"
+                        //     });
+                        // })
                     })
                 })
             },

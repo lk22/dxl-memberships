@@ -43,7 +43,7 @@
             </div>
         </div>
         <?php if( $members ) { ?>
-        <h1>Betalte medlemmer</h1>
+        <h1>Betalte medlemmer <small>(<?php echo count($members) ?>)</small></h1>q
         <br>
         <table class="widefat fixed striped">
             <thead>
@@ -116,7 +116,7 @@
             if( $notPayedMembers )
             {
                 ?>  <br>
-                    <h1>Ikke betalte medlemmer</h1><br>
+                    <h1>Ikke betalte medlemmer <small>(<?php echo count($notPayedMembers); ?>)</small></h1><br>
                     <table class="widefat fixed striped">
                         <thead>
                             <th>Navn</th>
@@ -297,5 +297,6 @@
             </div>
         </div>
     </div>
+
 
 </div>

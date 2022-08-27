@@ -42,53 +42,30 @@
         } ?>
     </div>
 
-    <div class="modal face" id="createMembershipsModal" tabindex="-1">
+    <div class="modal modal-lg fade fadeInUp" id="createMembershipsModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Opret kontingent</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                <p>Udfyld felterne nedenfor for at registrer nyt kontingent</p>
+                <form action="#" class="create-membership-form">
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control" id="membership-name" placeholder="Kontingent navn" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="membership-length" placeholder="Varighed" required>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="button-primary mr-4" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="button-primary submit-create-membership">Opret kontingent</button>
             </div>
             </div>
         </div>
     </div>
 
-
-    <div class="modal createMembershipsModal hidden" role="dialog">
-        <div class="modal-header">
-            <h1>Opret medlemsskab</h1>
-        </div>
-        <div class="modal-body">
-            <div class="validated-message hidden"></div>
-            <form action="" class="createMembershipForm">
-                <div class="left-form">
-                    <div class="form-control">
-                        <h4>
-                            <label for="membership-name">Kontingent</label>
-                        </h4>
-                        <input type="text" id="membership-name" placeholder="Navngiv kontingent" required>
-                    </div>
-    
-                    <div class="form-control">
-                        <h4>
-                            <label for="membership-length">Kontingent varighed i antal måneder</label>
-                        </h4>    
-                        <input type="number" id="membership-length" pattern="[1-2]{2}" required>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="button-primary close-modal">Luk <span class="dashicons dashicons-no"></span></button>
-            <button class="button-primary submit-create-membership">Opret kontingent</button>
-        </div>
-    </div>
-    <div class="overlay hidden"></div>
 </div>
