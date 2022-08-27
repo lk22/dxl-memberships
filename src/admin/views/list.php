@@ -117,6 +117,7 @@
                     <table class="widefat fixed striped">
                         <thead>
                             <th>Navn</th>
+                            <th>Medlemsnummer</th>
                             <th>Email</th>
                             <th>Afventer godkendelse</th>
                             <th></th>
