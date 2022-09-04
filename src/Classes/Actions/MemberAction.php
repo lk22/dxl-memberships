@@ -7,7 +7,7 @@
     use DXL\Classes\Core;
 
     // Abstracts
-    use Dxl\Classes\Abstracts\AbstractAction as Action;
+    use Dxl\Classes\Abstracts\AbstractActionController as Controller;
 
     // Services
     use DxlMembership\Classes\Services\MemberService;
@@ -26,7 +26,7 @@
     
     if( !class_exists('MemberAction') )
     {
-        class MemberAction extends Action  
+        class MemberAction extends Controller  
         {
             /**
              * Member Constructor
