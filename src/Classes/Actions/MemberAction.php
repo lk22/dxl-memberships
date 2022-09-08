@@ -128,7 +128,7 @@
             {
                 $member = $this->memberRepository->find((int) esc_sql($_GET["id"]));
                 $membership = $this->membershipRepository->find($member->membership);
-                $memberships = $this->membershipRepository->all();
+                $memberships = $this->membershipRepository->all() ?? [];
                 $activities = $this->membershipActivityRepository->select()->where('member_id', $member->id)->get();
                 if( $member->profile_activated ) {
                     $profile = $this->memberRepository->getProfile($member->id);
@@ -496,7 +496,10 @@
             {
                 global $current_user;
                 $this->dxl->log("Triggering action: " . __METHOD__, 'memberships');
+                
                 $member_id = $_REQUEST["member"]["id"];
+                $cancelReason = $_REQUEST["member"]["reason"];
+                
                 if( !$member_id ) 
                 {
                     $this->dxl->response('member', ["error" => true, "response" => "Kunnde ikke finde medlems ID i din forespørgsel"]);
@@ -505,8 +508,8 @@
                 }
 
                 $member = $this->service->getMemberById($member_id);
-
                 $userRemoved = wp_delete_user($member->user_id);
+                
                 // @TODO: fix user detaching while deactivating members
                 if( !$userRemoved ) 
                 {
@@ -518,7 +521,7 @@
                     wp_die();
                 }
                 
-                $deactivated = $this->service->deactivateMember($member->id);
+                $deactivated = $this->service->deactivateMember($member->id, $cancelReason);
 
                 $this->dxl->log("Deactivating member: " . $member->name . " in action " . __METHOD__, 'memberships', 1);
 

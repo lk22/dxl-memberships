@@ -211,7 +211,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Er du sikker på du vil fjerne kontingent fra <?php echo $member->name; ?></p>
+        <p>Angiv begrundelse for anullering af kontingent på <?php echo $member->name; ?></p>
+        <textarea name="cancel-reason" id="cancel-reason" cols="30" rows="10"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="button-primary me-2" data-bs-dismiss="modal">Luk</button>

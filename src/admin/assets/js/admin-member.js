@@ -324,9 +324,13 @@
                         e.preventDefault();
 
                         const member = $(".payment-removed-button").data('member');
+                        const reason = $('#cancel-reason').val();
                         self.core.request.data.member = {
-                            id: member
+                            id: member,
+                            reason: reason
                         };
+
+                        console.log(self.core.request.data.member)
                         
                         self.core.sendRequest(
                             'dxl_member_deactivate_payment',
@@ -425,6 +429,8 @@
                 self.container.find('.deactivate-profile-button').click(() => {
                     const action = self.container.find('.deactivate-profile-button').data('action');
                     const member = self.container.find('.deactivate-profile-button').data('member');
+                    const reason = self.container.find('#cancel-reason').val();
+                    
                     console.log(member);
                     
                     self.core.request.data.member = {

@@ -7,7 +7,9 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 use DxlMembership\Classes\Repositories\MembershipActivityRepository;
 
-if(!class_exists('MemberService'))
+if( ! defined('ABSPATH') ) exit;
+
+if( ! class_exists('MemberService') )
 {
     class MemberService 
     {
@@ -23,6 +25,11 @@ if(!class_exists('MemberService'))
          */
         public $primaryIdentifier = 'id';
 
+        /**
+         * Membership activity repository
+         *
+         * @var DxlMembership\Classes\Repositories\MembershipActivityRepository
+         */
         public $membershipActivityRepository;
 
         /**
@@ -214,7 +221,7 @@ if(!class_exists('MemberService'))
          * @param [type] $member
          * @return void
          */
-        public function deactivateMember($member) 
+        public function deactivateMember($member, string $reason = "") : bool
         {
             global $wpdb;
 
@@ -230,7 +237,7 @@ if(!class_exists('MemberService'))
             $this->membershipActivityRepository->create([
                 "member_id" => $member,
                 "status" => "Anulleret",
-                "status_message" => "Kontingent på medlem er registreret anulleret",
+                "status_message" => ( ! is_null($reason) ) ? $reason : "Kontingent på medlem er registreret anulleret",
                 "created_at" => time()
             ]);
 
