@@ -6,7 +6,9 @@ use Dxl\Classes\Abstracts\AbstractRepository as Repository;
 
 use DxlMembership\Classes\Repositories\MemberProfileRepository as MemberProfile;
 
-if( !class_exists('MemberRepository') )
+if ( !defined('ABSPATH') ) exit;
+
+if( ! class_exists('MemberRepository') )
 {
     class MemberRepository extends Repository
     {

@@ -5,6 +5,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
+use DxlMembership\Classes\Repositories\MembershipActivityRepository;
+
 if(!class_exists('MemberService'))
 {
     class MemberService 
@@ -21,11 +23,14 @@ if(!class_exists('MemberService'))
          */
         public $primaryIdentifier = 'id';
 
+        public $membershipActivityRepository;
+
         /**
          * Member Service Constructor
          */
         public function __construct()
         {
+            $this->membershipActivityRepository = new MembershipActivityRepository;
             //$this->sanitizer = new Sanitizer('MemberSanitizer');
         }
 
@@ -150,9 +155,14 @@ if(!class_exists('MemberService'))
         public function removeMember($member, $field = "id")
         {
             global $wpdb;
-            return $wpdb->delete($wpdb->prefix . "members", [
-                $this->primaryIdentifier => (int) $member
-            ]);
+
+            $deleted = $wpdb->delete($wpdb->prefix . "member", [$this->primaryIdentifiery => (int) $member]);
+
+            if( ! $deleted ) return false;
+
+            $wpdb->delete($wpdb->prefix . "membership_activity", ["member_id" => (int) $member]);
+
+            return true;
         }
 
         /**
@@ -184,7 +194,18 @@ if(!class_exists('MemberService'))
                 "user_id" => (int) $user_id
             ], [$this->primaryIdentifier => $member]);
 
-            return ($updated == false || $updated == 0) ? false : true;
+            if( ! $updated ) {
+                return false;
+            }
+
+            $this->membershipActivityRepository->create([
+                "member_id" => $member,
+                "status" => "Kontingent faktura betalt",
+                "status_message" => "Kontingent på medlem er registreret betalt",
+                "created_at" => time()
+            ]);
+
+            return true;
         }
 
         /**
@@ -202,7 +223,18 @@ if(!class_exists('MemberService'))
                 "user_id" => 0
             ], [$this->primaryIdentifier => $member]);
 
-            return ($updated == false || $updated == 0) ? false : true;
+            if ( ! $updated ) {
+                return false;
+            }
+
+            $this->membershipActivityRepository->create([
+                "member_id" => $member,
+                "status" => "Anulleret",
+                "status_message" => "Kontingent på medlem er registreret anulleret",
+                "created_at" => time()
+            ]);
+
+            return true;
         }
 
         /**

@@ -99,6 +99,7 @@ body.toplevel_page_dxl-members #wpcontent{
 
 .dxl-admin-members.member-details-container .member-details {
     display:flex;
+    padding: 50px 25px;
 }
 
 .dxl-admin-members.member-details-container .member-details .left-details h1{

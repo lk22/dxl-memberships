@@ -157,6 +157,29 @@
                     }
                 ?>
                 </div>
+                <div class="membership-activity-log mt-4">
+                    <h3>Kontingent aktivitet</h3>
+                    <hr>
+                    <?php 
+                        if ( $activities ) {
+                            foreach($activities as $activity) {
+                                ?>
+                                    <div class="activity">
+                                        <div class="row mt-2">
+                                            <div class="col-2">
+                                                <p><?php echo date("d-m-Y", $activity->created_at ) ?></p>
+                                            </div>
+                                            <div class="col-8">
+                                                <p class="mb-0 lead"><?php echo $activity->status ?></p>
+                                                <p><?php echo $activity->status_message ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        }
+                    ?>
+                </div>
             </div>
         </div>
     </div>

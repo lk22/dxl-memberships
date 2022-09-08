@@ -15,6 +15,7 @@
     // Repositories
     use DxlMembership\Classes\Repositories\MemberRepository;
     use DxlMembership\Classes\Repositories\MembershipRepository;
+    use DxlMembership\Classes\Repositories\MembershipActivityRepository;
     
     // requests
     use DxlMembership\Classes\Requests\MemberRequest;
@@ -35,6 +36,7 @@
             {
                 $this->memberRepository = new MemberRepository();
                 $this->membershipRepository = new MembershipRepository();
+                $this->membershipActivityRepository = new MembershipActivityRepository();
                 $this->dxl = new Core();
                 $this->service = new MemberService();
                 $this->request = new MemberRequest();
@@ -51,6 +53,7 @@
             {
                 add_action("wp_ajax_dxl_member_create", [$this, 'adminCreateMember']);
                 add_action("wp_ajax_nopriv_dxl_add_member",[$this, "frontendCreateMember"]);
+                add_action("wp_ajax_dxl_add_member",[$this, "frontendCreateMember"]);
                 add_action("wp_ajax_dxl_member_update", [$this, 'adminUpdateMember']);
                 add_action("wp_ajax_dxl_member_update_payed", [$this, 'adminAcceptPayment']);
                 add_action("wp_ajax_dxl_member_deactivate_payment", [$this, 'adminDeactivatePayment']);
@@ -62,7 +65,7 @@
 
             public function registerGuestActions()
             {
-                add_action("wp_ajax_nopriv_dxl_add_member",[$this, "frontendCreateMember"]);
+                //add_action("wp_ajax_nopriv_dxl_add_member",[$this, "frontendCreateMember"]);
             }
 
             /**
@@ -126,6 +129,7 @@
                 $member = $this->memberRepository->find((int) esc_sql($_GET["id"]));
                 $membership = $this->membershipRepository->find($member->membership);
                 $memberships = $this->membershipRepository->all();
+                $activities = $this->membershipActivityRepository->select()->where('member_id', $member->id)->get();
                 if( $member->profile_activated ) {
                     $profile = $this->memberRepository->getProfile($member->id);
                 }

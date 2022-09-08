@@ -1,4 +1,4 @@
-console.log(dxl_member_vars);
+console.log(dxl_member_vars.action[0]);
 (function($) {
 
     const frontendMember = {
