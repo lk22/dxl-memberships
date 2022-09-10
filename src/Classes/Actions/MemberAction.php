@@ -100,7 +100,7 @@
             public function renderMembershipForm()
             {
                 global $wpdb;
-                $memberships = $wpdb->get_results("SELECT id, name, price FROM " . $wpdb->prefix . "memberships");
+                $memberships = $wpdb->get_results("SELECT id, name, price, length FROM " . $wpdb->prefix . "memberships");
                 require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/frontend/views/create.php";
             }
 

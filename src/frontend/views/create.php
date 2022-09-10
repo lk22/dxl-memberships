@@ -96,7 +96,11 @@
                         <?php 
                             foreach($memberships as $membership) 
                             {
-                                ?> <option value="<?php echo $membership->id ?>"><?php echo $membership->name; ?> (<?php echo $membership->price ?> DKK)</option> <?php
+                                if( strtotime('today') > strtotime('last day of june this year') && $membership->length == 12) {
+                                            
+                                } else {
+                                    echo "<option value=" . $membership->id .">" . $membership->name . " (" . $membership->price . " DKK)</option>";
+                                }
                             }
                         ?>
                     </select>

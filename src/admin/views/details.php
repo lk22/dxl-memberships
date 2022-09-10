@@ -167,7 +167,7 @@
                                     <div class="activity">
                                         <div class="row mt-2">
                                             <div class="col-2">
-                                                <p><?php echo date("d-m-Y H:i:s", $activity->created_at ) ?></p>
+                                                <p><?php echo date("d-m-Y H:i:s", $activity->created_at + 7200 ) ?></p>
                                             </div>
                                             <div class="col-8">
                                                 <p class="mb-0 lead"><?php echo $activity->status ?></p>
