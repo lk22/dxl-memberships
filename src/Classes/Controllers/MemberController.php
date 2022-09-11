@@ -1,10 +1,13 @@
 <?php 
 
-    namespace DxlMembership\Classes\Actions;
+    namespace DxlMembership\Classes\Controllers;
     require_once(ABSPATH . "wp-content/plugins/dxl-core/src/Classes/Core.php");
 
     // Core
     use DXL\Classes\Core;
+
+    // Interfaces
+    use Dxl\Interfaces\ViewInterface;
 
     // Abstracts
     use Dxl\Classes\Abstracts\AbstractActionController as Controller;
@@ -24,10 +27,14 @@
     use DxlMembership\Classes\Mails\SendRegisteredMember;
     use DxlMembership\Classes\Mails\ProfileActivated;
     use DxlMembership\Classes\Mails\ProfileDeactivated;
+
+    // Views
+    use DxlMembership\Classes\Views\MemberDetailsView;
+    use DxlMembership\Classes\Views\MemberListView;
     
-    if( !class_exists('MemberAction') )
+    if( !class_exists('MemberController') )
     {
-        class MemberAction extends Controller  
+        class MemberController extends Controller  
         {
             /**
              * Member Constructor
@@ -80,15 +87,15 @@
                     switch($_GET["action"])
                     {
                         case 'details': 
-                            $this->manageMemberDetails();
+                            return (new MemberDetailsView())->render();
                             break;
     
                         case 'list': 
-                            $this->manageMembersList();
+                            return (new MemberListView())->render();
                             break;
                     }
                 } else {
-                    $this->manageMembersList();
+                    return (new MemberListView())->render();
                 }
             }
 
@@ -102,39 +109,6 @@
                 global $wpdb;
                 $memberships = $wpdb->get_results("SELECT id, name, price, length FROM " . $wpdb->prefix . "memberships");
                 require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/frontend/views/create.php";
-            }
-
-            /**
-             * Render admin list view
-             *
-             * @return void
-             */
-            public function manageMembersList() {
-                global $wpdb;
-
-                $members = $this->memberRepository->all();
-                $notPayedMembers = $this->memberRepository->select()->where('is_payed', 0)->get();
-                $memberships = $this->membershipRepository->all();
-
-                require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/admin/views/list.php";
-            }
-
-            /**
-             * render details view
-             *
-             * @return void
-             */
-            public function manageMemberDetails()
-            {
-                $member = $this->memberRepository->find((int) esc_sql($_GET["id"]));
-                $membership = $this->membershipRepository->find($member->membership);
-                $memberships = $this->membershipRepository->all() ?? [];
-                $activities = $this->membershipActivityRepository->select()->where('member_id', $member->id)->get();
-                if( $member->profile_activated ) {
-                    $profile = $this->memberRepository->getProfile($member->id);
-                }
-
-                require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/admin/views/details.php";
             }
 
             /**
@@ -152,7 +126,7 @@
                     $memberData[$m] = [
                         "name" => $member->name,
                         "gamertag" => $member->gamertag,
-                        "membership" => $membership->name
+                        "membership" => $membership->name ?? ''
                     ];
                 }
                 return $memberData;
@@ -618,9 +592,7 @@
                             "response" => $member->gamertag . "'s profil er aktiveret."
                         ]);
                         $this->dxl->log("Activated " . $member->gamertag . "'s profile dashboard successfully", "memberships");
-                        
-                        
-                        
+                    
                         wp_die();
                         break;
 

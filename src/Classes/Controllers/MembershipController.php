@@ -1,6 +1,6 @@
 <?php 
 
-namespace DxlMembership\Classes\Actions;
+namespace DxlMembership\Classes\Controllers;
 require_once(ABSPATH . "wp-content/plugins/dxl-core/src/Classes/Core.php");
 
 use DXL\Classes\Core;
@@ -8,9 +8,9 @@ use DxlMembership\Classes\Services\MembershipService;
 use DxlMembership\Classes\Requests\MembershipRequest;
 use Dxl\Classes\Abstracts\AbstractActionController as Controller;
 
-if(!class_exists('MembershipAction')) 
+if(!class_exists('MembershipController')) 
 {
-    class MembershipAction extends Controller
+    class MembershipController extends Controller
     {
         /**
          * Constructor

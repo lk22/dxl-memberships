@@ -12,8 +12,8 @@ if( !defined('ABSPATH') ) {exit;}
 require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
 require_once ABSPATH . "wp-content/plugins/dxl-memberships/PhpSpreadsheet/vendor/autoload.php";
 
-use DxlMembership\Classes\Actions\MemberAction;
-use DxlMembership\Classes\Actions\MembershipAction;
+use DxlMembership\Classes\Controllers\MemberController;
+use DxlMembership\Classes\Controllers\MembershipController;
 use DXL\Classes\Core;
 
 // use DxlMembership\Classes\Cron\LookExpiredMemberships;
@@ -35,8 +35,8 @@ if( !class_exists('DXLMemberships') )
          */
         public function __construct()
         {
-            $this->member = new MemberAction();
-            $this->membership = new MembershipAction();
+            $this->memberController = new MemberController();
+            $this->membershipController = new MembershipController();
             add_action( 'admin_menu', [$this, 'registerModuleMenu']);
             add_action('admin_enqueue_scripts', [$this, 'enqueueAdminmMmberScripts']);
             add_shortcode('dxlMembershipForm', [$this, 'enqueueMembershipForm']);
@@ -165,7 +165,7 @@ if( !class_exists('DXLMemberships') )
          */
         public function register_latest_members_widget()
         {
-            $members = $this->member->getLatest();
+            $members = $this->memberController->getLatest();
             require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/admin/views/widget/latest.php";
         }
 
@@ -176,7 +176,7 @@ if( !class_exists('DXLMemberships') )
          */
         public function register_awaiting_members_widget()
         {
-            $members = $this->member->getAwaitingMembers();
+            $members = $this->memberController->getAwaitingMembers();
             require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/admin/views/widget/awaiting.php";
         }
 
@@ -202,7 +202,7 @@ if( !class_exists('DXLMemberships') )
         {
             add_action('wp_enqueue_scripts', [$this, 'enqueueFrontendMemberScripts']);
             do_action('wp_enqueue_scripts');
-            $this->member->renderMembershipForm();
+            $this->memberController->renderMembershipForm();
         }
 
         /**
@@ -212,7 +212,7 @@ if( !class_exists('DXLMemberships') )
          */
         public function members_manager()
         {
-            $this->member->manage();
+            $this->memberController->manage();
         }
 
         /**
@@ -222,7 +222,7 @@ if( !class_exists('DXLMemberships') )
          */
         public function memberships_manager()
         {
-            $this->membership->manage();
+            $this->membershipController->manage();
         }
     }
 }
