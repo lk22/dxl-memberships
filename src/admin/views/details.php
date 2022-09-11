@@ -347,6 +347,7 @@
                         </div>
                     </div>
 
+                    <p class="lead mb-1 mt-1">Ønsker autofornyelse?</p>
                     <div class="form-group member-auto-renew">
                         <div class="input">
                             <label for="member-renew">Ja</label>
