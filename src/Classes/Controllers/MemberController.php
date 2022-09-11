@@ -44,6 +44,10 @@
                 $this->memberRepository = new MemberRepository();
                 $this->membershipRepository = new MembershipRepository();
                 $this->membershipActivityRepository = new MembershipActivityRepository();
+                
+                $this->memberList = new MemberListView();
+                $this->memberDetails = new MemberDetailsView();
+
                 $this->dxl = new Core();
                 $this->service = new MemberService();
                 $this->request = new MemberRequest();
@@ -87,15 +91,15 @@
                     switch($_GET["action"])
                     {
                         case 'details': 
-                            return (new MemberDetailsView())->render();
+                            return $this->memberDetails->render();
                             break;
     
                         case 'list': 
-                            return (new MemberListView())->render();
+                            return $this->memberList->render();
                             break;
                     }
                 } else {
-                    return (new MemberListView())->render();
+                    return $this->memberList->render();
                 }
             }
 
