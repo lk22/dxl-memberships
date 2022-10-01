@@ -12,7 +12,7 @@ if( !class_exists('MemberProfileRepository') )
     {
         protected $repository = "member_profile_settings";
         protected $defaultOrder = "DESC";
-        protected $primaryIdentifier = "id";
+        protected $primaryIdentifier = "member_id";
     }
 }
 

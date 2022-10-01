@@ -53,10 +53,4 @@ if( !class_exists('MembershipValidator') )
     }
 }
 
-interface Loggable 
-{
-    public function log();
-}
-
-
 ?>
