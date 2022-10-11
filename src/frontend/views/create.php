@@ -51,13 +51,6 @@
                     </select>
                 </div>
             </div>
-
-            <div class="form-group member-number">
-                <label for="member-number">Medlemsnummer</label>
-                <div class="input">
-                    <input type="number" name="member_number" id="member-number" required>
-                </div>
-            </div>
         </div>
         <div class="right-form">
             <h3>Adresse informationer</h3>
