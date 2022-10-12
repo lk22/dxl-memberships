@@ -387,6 +387,22 @@ if( ! class_exists('MemberService') )
         }
 
         /**
+         * Reseting password for a given member
+         *
+         * @param [type] $member
+         * @return void
+         */
+        public function resetMemberPassword($member) 
+        {
+            $user = new \WP_User($member->user_id);
+
+            return wp_set_password(
+                $member->gamertag,
+                $user->ID
+            );
+        }
+
+        /**
          * exporting all members
          *
          * @param [type] $sheet

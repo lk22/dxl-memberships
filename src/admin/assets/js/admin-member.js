@@ -899,53 +899,33 @@
                             });
                         })
                     })
-
-
                 })
 
-                // self.container.find('.delete-membership-button').each((index, item) => {
-                //     $(item).click((e) => {
-                        // e.preventDefault();
-                        // const membership = $(this).data('membership');
-                        // console.log(membership)
+                self.container.find('.reset-member-btn').click((e) => {
+                    e.preventDefault();
+
+                    const member = $('.reset-member-btn').data('member');
+                    const action = $('.reset-member-btn').data('action');
                     
-                        // self.core.request.data.membership = {
-                        //     id: membership
-                        // };
-    
-                        // self.core.sendRequest('dxl_delete_membership', 'POST', self.core.request.url, self.core.request.data, (response) => {
-                        //     console.log(response);
-                        
-                        //     const json = JSON.parse(response).membership;
-                        //     const hasError = self.core.checkForResponseError(json);
-    
-                        //     if( hasError ) {
-                        //         $.toast({
-                        //             title: "Fejl",
-                        //             text: json.response,
-                        //             icon: "error",
-                        //             position: "bottom-right"
-                        //         });
-                        //         return false;
-                        //     }
-    
-                        //     $.toast({
-                        //         title: "Fejl",
-                        //         text: json.response,
-                        //         icon: "error",
-                        //         position: "bottom-right"
-                        //     });
-                        //     self.core.redirectToAction('memberships', {});
-    
-                        // }, (error) => {console.log(error)}, () => {
-                        //     $.toast({
-                        //         text: "fjerner kontingent. vent venligst..",
-                        //         icon: "info",
-                        //         position: "bottom-right"
-                        //     });
-                        // })
-                    // })
-                // })
+                    self.core.request.data.member = {
+                        id: member,
+                        action: action
+                    };
+
+                    self.core.sendRequest('dxl_member_update_action', 'POST', self.core.request.url, self.core.request.data, (response) => {
+                        console.log(response);
+
+                        const json = JSON.parse(response).member;
+                        $.toast({
+                            title: "Adgangskode nulstillet",
+                            text: json.response,
+                            icon: "success",
+                            position: "bottom-right"
+                        });
+                    }, (error) => {
+                        console.log(error);
+                    })
+                })
             },
          }
 

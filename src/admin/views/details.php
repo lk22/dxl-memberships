@@ -146,6 +146,7 @@
                                     }
                                 ?>
                                 <button class="deactivate-member-button button-primary" data-bs-toggle="modal" data-bs-target="#removePayedStatusModal" data-action="deactivate-member" data-member="<?php echo $member->id; ?>">Deaktiver medlem</button>
+                                <button class="reset-member-btn button-primary" data-action="reset-member-password" data-member="<?php echo $member->id; ?>">Gendan kodeord</button>
                             </div>
                         <?php
                     }

@@ -27,6 +27,7 @@
     use DxlMembership\Classes\Mails\SendRegisteredMember;
     use DxlMembership\Classes\Mails\ProfileActivated;
     use DxlMembership\Classes\Mails\ProfileDeactivated;
+    use DxlMembership\Classes\Mails\MemberUserPasswordReset;
 
     // Views
     use DxlMembership\Classes\Views\MemberDetailsView;
@@ -725,6 +726,24 @@
                         ]);
                         $this->dxl->log("Removed tournament author permissions to member: " . $member->gamertag, 'memberships');
                         wp_die();
+
+                        break;
+
+                    case 'reset-member-password':
+
+                        $this->dxl->log('Triggering update action: "reset-member-pwd" ' . __METHOD__, "memberships");
+                        $this->service->resetMemberPassword($member); // assign to gamertag
+
+                        $mail = (new MemberUserPasswordReset($member))->setSubject($member->gamertag . " - nulstillet adgangskode")
+                            ->setReciever($member->email)
+                            ->send();
+
+                        $this->dxl->response('member', [
+                            "response" => "Adgangskode er nulstillet"
+                        ]);
+
+                        wp_die();
+                        
 
                         break;
                 }
