@@ -921,7 +921,7 @@
                             text: json.response,
                             icon: "success",
                             position: "bottom-right"
-                        });
+                        }); 
                     }, (error) => {
                         console.log(error);
                     })
