@@ -12,6 +12,8 @@ if( !defined('ABSPATH') ) {exit;}
 require_once(plugin_dir_path(__FILE__) . 'vendor/autoload.php');
 require_once ABSPATH . "wp-content/plugins/dxl-memberships/PhpSpreadsheet/vendor/autoload.php";
 
+require_once 'functions.php';
+
 use DxlMembership\Classes\Controllers\MemberController;
 use DxlMembership\Classes\Controllers\MembershipController;
 use DXL\Classes\Core;

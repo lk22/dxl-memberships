@@ -255,10 +255,6 @@ if( ! class_exists('MemberService') )
             global $wpdb;
             $members = $wpdb->get_results("SELECT DISTINCT * FROM " . $wpdb->prefix . "members WHERE " . $field . " LIKE '%$value%'");
             return $members;
-            return [
-                // "list" => $members,
-                // "query" => $wpdb->last_query
-            ];
         }
 
         /**
