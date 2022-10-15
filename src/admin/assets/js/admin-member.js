@@ -95,7 +95,7 @@
                             } 
                                
                             $.each(members.data, (index, member) => {
-                                searchbar.find('.search-member-list').append("<div class='result'><h3><a href='admin.php?page=dxl-members&action=details&id="+member.id+"'><span>" + member.name + "</span> - <span>" + member.gamertag + "</span></a></h3></div>");
+                                searchbar.find('.search-member-list').append("<div class='result'><p><a href='admin.php?page=dxl-members&action=details&id="+member.id+"'><span>" + member.name + "</span> - <span>" + member.gamertag + "</span></a></p></div>");
                             });
 
                         }, (error) => {
