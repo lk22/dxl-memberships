@@ -100,7 +100,7 @@
                 </div>
             </div>
 
-            <div class="form-group member-auto-renew">
+            <div class="form-group member-auto-renew mt-3">
                 <div class="input">
                     <input type="submit" value="Ansøg">
                 </div>
