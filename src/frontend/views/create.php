@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="right-form">
+        <div class="right-form mt-3">
             <h3>Adresse informationer</h3>
             <div class="form-group address">
                 <label for="member-adress">Adresse</label>
