@@ -281,7 +281,7 @@
                 }
 
                 $member = $this->service->createMember([
-                    "member_number" => $_REQUEST["member"]["memberNumber"],
+                    "member_number" => $existingMember->member_number + 1,
                     "user_id" => 0,
                     "name" => $_REQUEST["member"]["name"],
                     "gamertag" => $_REQUEST["member"]["gamertag"],
