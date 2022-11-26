@@ -45,7 +45,7 @@
             public function render() 
             {
                 global $wpdb;
-                $members = $this->memberRepository->all();
+                $members = $this->memberRepository->select()->where('is_payed', 1)->get();
                 $notPayedMembers = $this->memberRepository->select()->where('is_payed', 0)->get();
                 $memberships = $this->membershipRepository->all();
 
