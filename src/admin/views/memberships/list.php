@@ -69,7 +69,7 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer gap-2">
                 <button type="button" class="button-primary mr-4" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="button-primary submit-create-membership">Opret kontingent</button>
             </div>
