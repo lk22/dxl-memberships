@@ -197,7 +197,7 @@
                         $('.validated-message').addClass('error').html('<p>' + validatedMessage + '</p>').show();
                     }
 
-                    if( self.validated.failed == false ) {
+                    // if( self.validated.failed == false ) {
                         self.core.sendRequest('POST', self.core.request.url, self.core.request.data, (response) => {
                             console.log(response);
 
@@ -234,7 +234,7 @@
                                 position: 'bottom-right'
                             });
                         });
-                    }
+                    // }
                 });
 
                 // export members from list
