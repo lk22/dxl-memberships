@@ -10,8 +10,6 @@ console.log(dxl_member_vars.action[0]);
         bindActions: function() {
             const self = this;
             const memberForm = self.container.find('.frontendCreateMemberForm');
-
-
            
             memberForm.submit((e) => {
                 e.preventDefault();

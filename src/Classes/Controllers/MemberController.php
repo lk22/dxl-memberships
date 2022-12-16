@@ -28,6 +28,8 @@
     use DxlMembership\Classes\Mails\ProfileActivated;
     use DxlMembership\Classes\Mails\ProfileDeactivated;
     use DxlMembership\Classes\Mails\MemberUserPasswordReset;
+    use DxlMembership\Classes\Mails\NewMemberRequest;
+    use DxlMembership\Classes\Mails\MemberRequestReceipt;
 
     // Views
     use DxlMembership\Classes\Views\MemberDetailsView;
@@ -311,8 +313,18 @@
                     wp_die();
                 }
 
-                $mail = (new SendRegisteredMember($member))
-                    ->setReciever("knudsenudvikling@gmail.com")
+                $membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
+
+        
+                // send new member request to admin
+                $mail = (new NewMemberRequest($member, $membership))
+                    ->setReciever("medlemskab@danishxboxleague.dk")
+                    ->setSubject("Nyt medlemskab")
+                    ->send();
+
+                // send receipt to new member
+                $mail = (new MemberRequestReceipt($member, $membership))
+                    ->setReciever($member->email)
                     ->setSubject("New Registered member")
                     ->send();
 
