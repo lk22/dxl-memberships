@@ -325,7 +325,7 @@
                 // send receipt to new member
                 $mail = (new MemberRequestReceipt($member, $membership))
                     ->setReciever($member->email)
-                    ->setSubject("New Registered member")
+                    ->setSubject("Kvittering medlemskab - " . $membership->name)
                     ->send();
 
                 $this->dxl->response('member', ["response" => "Du er nu oprettet i vores system og vil blive taget hånd om dit medlemsskab"]);
