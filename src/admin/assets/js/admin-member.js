@@ -120,7 +120,9 @@
                     self.validated.failed = false;
                     self.validated.fields = [];
                     const form = self.container.find('.adminCreateMemberForm');
-                    self.core.request.data.action = "dxl_admin_create_member";
+                    self.core.request.data.action = "dxl_member_create";
+                    self.core.request.data.dxl_member_nonce = dxl_member_vars.dxl_member_nonce;
+                    // self.core.request.data.dxl_nonce
                     self.core.request.data.member = {};
                     self.core.request.data.member.name = form.find('#member-name').val();
                     self.core.request.data.member.gamertag = form.find('#member-gamertag').val();
@@ -135,6 +137,8 @@
                     self.core.request.data.member.municipality = form.find('#member-municipality').val();
                     self.core.request.data.member.membership = form.find('#member-membership').val();
                     self.core.request.data.member.auto_renew = form.find('#member-renew:checked').val();
+
+                    console.log(self.core.request.data.member)
                     
                     if( self.core.request.data.member.name.length < 1 ) {
                         self.validated.failed = true;
@@ -197,8 +201,19 @@
                         $('.validated-message').addClass('error').html('<p>' + validatedMessage + '</p>').show();
                     }
 
-                    // if( self.validated.failed == false ) {
-                        self.core.sendRequest('POST', self.core.request.url, self.core.request.data, (response) => {
+                    $.ajax({
+                        method: "POST",
+                        url: self.core.request.url,
+                        data: self.core.request.data,
+                        beforeSend: function() {
+                            $.toast({
+                                heading: 'Medlems oprettelse',
+                                text: 'Opretter ' + self.core.request.data.member.gamertag,
+                                icon: 'info',
+                                position: 'bottom-right'
+                            });
+                        },
+                        success: function(response) {
                             console.log(response);
 
                             const json = JSON.parse(response);
@@ -223,17 +238,44 @@
 
                             self.core.closeModal();
                             self.core.redirectToAction('members', {})
+                        },
+                        error: function(error) {
+                            console.log(error)
+                        }
+                    })
 
-                        }, (error) => {
-                            console.log(error);
-                        }, () => {
-                            $.toast({
-                                heading: 'Medlems oprettelse',
-                                text: 'Opretter ' + self.core.request.data.member.gamertag,
-                                icon: 'info',
-                                position: 'bottom-right'
-                            });
-                        });
+                    // if( self.validated.failed == false ) {
+                        // self.core.sendRequest('POST', self.core.request.url, self.core.request.data, (response) => {
+                        //     console.log(response);
+
+                        //     const json = JSON.parse(response);
+                        //     const hasError = self.core.checkForResponseError(json.member);
+
+                        //     if( hasError ) {
+                        //         $.toast({
+                        //             title: "fejl",
+                        //             text: json.member.response,
+                        //             icon: "error",
+                        //             position: "bottom-right"
+                        //         });
+
+                        //         return false;
+                        //     }
+
+                        //     $.toast({
+                        //         text:json.member.response,
+                        //         icon: 'success',
+                        //         position: 'bottom-right'
+                        //     });
+
+                        //     self.core.closeModal();
+                        //     self.core.redirectToAction('members', {})
+
+                        // }, (error) => {
+                        //     console.log(error);
+                        // }, () => {
+                            
+                        // });
                     // }
                 });
 
