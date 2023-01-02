@@ -336,7 +336,7 @@
 
                 // send receipt to new member
                 $mail = (new MemberRequestReceipt($member, $membership))
-                    ->setReciever($_REQUEST["email"])
+                    ->setReciever($_REQUEST["member"]["email"])
                     ->setSubject("Kvittering medlemskab - " . $membership->name)
                     ->send();
 
