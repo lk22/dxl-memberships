@@ -35,7 +35,7 @@ if( !class_exists('LookExpiredMemberships') ) {
         public function __construct()
         {
             $this->memberRepository = new MemberRepository();
-            if( isset($_GET['action']) && $_GET["action"] == 'dxl_look_expired_memberships' ) {
+            if( isset($_GET['task']) && $_GET["task"] == 'dxl_look_expired_memberships' ) {
                 $this->lookup_expired_memberships();
             }
         }

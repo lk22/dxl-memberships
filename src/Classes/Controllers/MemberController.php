@@ -190,14 +190,24 @@
                     }
 
                     if( $member > 0 ) {
+
+                        $membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
+
+                        // send member requuest receipt mail to created member
+                        $mail = (new MemberRequestReceipt($member, $membership))
+                            ->setSubject("Nyt medlemskab - " . $membership->name)
+                            ->setReciever($_REQUEST["member"]["email"])
+                            ->send();
+
                         echo wp_json_encode( [
                             "member" => [
                                 "response" => "" . $_REQUEST["member"]["name"] . "er oprettet med success",
-                            ]
-                        ]);
+                                ]
+                            ]);
                         wp_die();
                     }
                 }
+
 
                 echo wp_json_encode( ["member" => ["response" => "Medlemmet eksistere allerede i registeret"]]);
                 wp_die();
@@ -282,7 +292,7 @@
                     wp_die();
                 }
 
-                $member = $this->service->createMember([
+                $created = $this->service->createMember([
                     "member_number" => $existingMember->member_number + 1,
                     "user_id" => 0,
                     "name" => $_REQUEST["member"]["name"],
@@ -304,7 +314,7 @@
                     "created_at" => strtotime('now', time())
                 ]);
 
-                if( !$member ) {
+                if( !$created ) {
                     $this->dxl->response('member', [
                         "error" => true,
                         "response" => "Noget gik galt, kunne ikke oprette medlem"
@@ -315,6 +325,8 @@
 
                 $membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
 
+                $member = $this->memberRepository->find($created); // should give you the new member
+
         
                 // send new member request to admin
                 $mail = (new NewMemberRequest($member, $membership))
@@ -324,7 +336,7 @@
 
                 // send receipt to new member
                 $mail = (new MemberRequestReceipt($member, $membership))
-                    ->setReciever($member->email)
+                    ->setReciever($_REQUEST["email"])
                     ->setSubject("Kvittering medlemskab - " . $membership->name)
                     ->send();
 
