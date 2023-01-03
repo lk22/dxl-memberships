@@ -326,18 +326,17 @@
                 $membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
 
                 $member = $this->memberRepository->find($created); // should give you the new member
-
         
                 // send new member request to admin
-                $mail = (new NewMemberRequest($member, $membership))
-                    ->setReciever("medlemskab@danishxboxleague.dk")
+                $newMemberReceipt = (new NewMemberRequest($member, $membership))
                     ->setSubject("Nyt medlemskab")
+                    ->setReciever("medlemskab@danishxboxleague.dk")
                     ->send();
 
                 // send receipt to new member
-                $mail = (new MemberRequestReceipt($member, $membership))
-                    ->setReciever($_REQUEST["member"]["email"])
+                $memberRequestReceipt = (new MemberRequestReceipt($member, $membership))
                     ->setSubject("Kvittering medlemskab - " . $membership->name)
+                    ->setReciever($member->email)
                     ->send();
 
                 $this->dxl->response('member', ["response" => "Du er nu oprettet i vores system og vil blive taget hånd om dit medlemsskab"]);

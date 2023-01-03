@@ -33,7 +33,7 @@ if ( !class_exists('NewMemberRequest') ) {
         public function send()
         {
             add_filter('wp_mail_content_type', [$this, 'setContentType']);
-            $mail = wp_mail($this->email, $this->subject, $this->template(), $this->headers, $this->attachments);
+            $mail = wp_mail($this->receiver, $this->subject, $this->template(), $this->headers, $this->attachments);
             remove_filter('wp_mail_content_type', [$this, 'setContentType']);
             
             return $mail;
