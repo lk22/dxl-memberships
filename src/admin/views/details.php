@@ -263,7 +263,7 @@
                     <div class="form-group phonenumber">
                         <label for="member_phone">Telefonnr:</label>
                         <div class="input">
-                            <input type="tel", name="member_phone" class="form-control" id="member-phone" value="12345678" value="<?php echo $member->phone; ?>" pattern="[0-9]{8}" required>
+                            <input type="tel", name="member_phone" class="form-control" id="member-phone" value="<?php echo $member->phone; ?>" pattern="[0-9]{8}" required>
                         </div>
                     </div>
 
@@ -272,7 +272,7 @@
                             Fødselsår
                         </label>
                         <div class="input">
-                            <input type="date" name="member_birthdate" class="form-control" id="member-birthdate" value="<?php echo date("dd/mm/yyyy", $member->birthyear); ?>" required>
+                            <input type="date" name="member_birthdate" class="form-control" id="member-birthdate" placeholder="<?php echo date("d-m-Y", strtotime($member->birthyear)); ?>" value="<?php echo date("d-m-Y", strtotime($member->birthyear)); ?>" required>
                         </div>
                     </div>
 
