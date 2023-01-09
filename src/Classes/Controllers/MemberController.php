@@ -515,12 +515,12 @@
                 // @TODO: fix user detaching while deactivating members
                 if( !$userRemoved ) 
                 {
-                    $this->dxl->response('member', [
-                        "error" => true,
-                        "response" => "Noget gik galt, kunne ikke fjerne bruger login tilknyttet " . $member->gamertag
-                    ]);
+                    // $this->dxl->response('member', [
+                    //     "error" => true,
+                    //     "response" => "Noget gik galt, kunne ikke fjerne bruger login tilknyttet " . $member->gamertag
+                    // ]);
                     $this->dxl->log("Tried to remove attached login user on " . $member->gamertag . " " . wp_json_encode($_REQUEST["member"]), "memberships");
-                    wp_die();
+                    // wp_die();
                 }
                 
                 $deactivated = $this->service->deactivateMember($member->id, $cancelReason);
