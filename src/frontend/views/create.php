@@ -33,7 +33,7 @@
 
             <div class="form-group birth">
                 <label for="member-birthdate">
-                    Fødselsår
+                    Fødselsdato
                 </label>
                 <div class="input">
                     <input type="date" name="member_birthdate" id="member-birthdate" required>
