@@ -163,11 +163,11 @@ if( ! class_exists('MemberService') )
         {
             global $wpdb;
 
-            $deleted = $wpdb->delete($wpdb->prefix . "member", [$this->primaryIdentifier => (int) $member]);
+            $deleted = $wpdb->delete($wpdb->prefix . "members", [$this->primaryIdentifier => (int) $member]);
 
             if( ! $deleted ) return false;
 
-            $wpdb->delete($wpdb->prefix . "membership_activity", ["member_id" => (int) $member]);
+            $wpdb->delete($wpdb->prefix . "memberships_activity", ["member_id" => (int) $member]);
 
             return true;
         }
