@@ -807,50 +807,56 @@
                         })
                     });
 
-                // delete member ressource from list
-                self.container.find('.delete-member-button').click((e) => {
-                    e.preventDefault();
-                    const member = self.container.find('.delete-member-button').data('member');
-                    const memberName = self.container.find('.delete-member-button').data('name');
-
-                    self.core.request.data.member = {
-                        id: member
-                    }
-
-                    self.core.sendRequest('dxl_member_delete', 'POST', self.core.request.url, self.core.request.data, (response) => {
-                        console.log(response);
-
-                        const member = JSON.parse(response).member;
-                        const hasError = self.core.checkForResponseError(member);
-
-                        if( hasError ) {
+                self.container.find('.pending-members-list').find('tr').each((index, element) => {
+                    $(element).find('.delete-member-button').click((e) => {
+                        
+                        e.preventDefault();
+        
+                        const member = $(element).data('member');
+                        // const member = self.container.find('.delete-member-button').data('member');
+                        const memberName = self.container.find('.delete-member-button').data('name');
+        
+                        self.core.request.data.member = {
+                            id: member
+                        }
+        
+                        console.log(self.core.request.data.member);
+        
+                        self.core.sendRequest('dxl_member_delete', 'POST', self.core.request.url, self.core.request.data, (response) => {
+                            console.log(response);
+        
+                            const member = JSON.parse(response).member;
+                            const hasError = self.core.checkForResponseError(member);
+        
+                            if( hasError ) {
+                                $.toast({
+                                    title: "Fejl",
+                                    text: member.response,
+                                    icon: "error",
+                                    position: "bottom-right"
+                                });
+                                return false;
+                            }
+                            
                             $.toast({
-                                title: "Fejl",
+                                title: "success",
                                 text: member.response,
-                                icon: "error",
+                                icon: "success",
                                 position: "bottom-right"
                             });
-                            return false;
-                        }
-                        
-                        $.toast({
-                            title: "success",
-                            text: member.response,
-                            icon: "success",
-                            position: "bottom-right"
-                        });
-
-                        self.core.redirectToAction('members', {});
-
-                    }, (error) => {
-                        console.log(error)
-                    }, () => {
-                        $.toast({
-                            title: "Sletter medlem",
-                            text: "Sletter medlem: " + memberName,
-                            icon: "info",
-                            position: "bottom-right"
-                        });
+        
+                            self.core.redirectToAction('members', {});
+        
+                        }, (error) => {
+                            console.log(error)
+                        }, () => {
+                            $.toast({
+                                title: "Sletter medlem",
+                                text: "Sletter medlem: " + memberName,
+                                icon: "info",
+                                position: "bottom-right"
+                            });
+                        })
                     })
                 })
 

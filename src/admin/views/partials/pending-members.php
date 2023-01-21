@@ -3,7 +3,7 @@
     {
         ?>  <br>
             <h1>Afventende medlemmer <small>(<?php echo count($notPayedMembers); ?>)</small></h1><br>
-            <table class="widefat fixed striped">
+            <table class="widefat fixed striped pending-members-list">
                 <thead>
                     <th>Navn</th>
                     <th>Medlemsnummer</th>
