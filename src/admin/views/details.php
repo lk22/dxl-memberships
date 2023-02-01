@@ -231,7 +231,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae quaerat, atque optio non, et rerum aspernatur sint necessitatibus iusto voluptatibus, ullam sequi explicabo a accusantium in dignissimos quasi eum dolor!</p>
             <div class="validated-message hidden"></div>
             <form action="" class="adminUpdateMemberForm">
                 <div class="row">
