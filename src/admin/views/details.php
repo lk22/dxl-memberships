@@ -271,7 +271,10 @@
                             Fødselsår
                         </label>
                         <div class="input">
-                            <input type="date" name="member_birthdate" class="form-control" id="member-birthdate" placeholder="<?php echo date("d-m-Y", strtotime($member->birthyear)); ?>" value="<?php echo date("d-m-Y", strtotime($member->birthyear)); ?>" required>
+                            <?php
+                                $datetime = new DateTime($member->birthyear);
+                            ?>
+                            <input type="date" name="member_birthdate" class="form-control" id="member-birthdate" value="<?php echo date("Y-m-d", strtotime($member->birthyear)); ?>" required>
                         </div>
                     </div>
 
