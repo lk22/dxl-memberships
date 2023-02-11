@@ -268,7 +268,7 @@
 
                     <div class="form-group birth">
                         <label for="member-birthdate">
-                            Fødselsår
+                            Fødselsdato
                         </label>
                         <div class="input">
                             <?php
