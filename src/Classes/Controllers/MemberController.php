@@ -158,7 +158,7 @@
             {
                 $existingMember = $this->service->getMember($_REQUEST["member"]["gamertag"]);
                 
-                if( !$existingMember > 0 ) {
+                if( !$existingMember > 0 && $_REQUEST["member"]["accept"] == "on" ) {
                     $member = $this->service->createMember([
                         "member_number" => $_REQUEST["member"]["member_number"],
                         "user_id" => 0,
