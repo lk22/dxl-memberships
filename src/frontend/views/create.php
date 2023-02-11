@@ -100,6 +100,18 @@
                 </div>
             </div>
 
+            <!--
+                create checkbox accept terms and conditions
+            -->
+            <div class="form-group member-terms mt-2">
+                <div class="input">
+                    <label for="member-terms">
+                        <input type="checkbox" name="member_terms" id="member-terms" required>
+                        Jeg accepterer <a href="/privatlivspolitik">medlems betingelser</a>
+                    </label>
+                </div>
+            </div>
+
             <div class="form-group member-auto-renew mt-3">
                 <div class="input">
                     <input type="submit" value="Ansøg">

@@ -52,7 +52,8 @@ console.log(dxl_member_vars.action[0]);
                             zipcode: memberForm.find('#member-zipcode').val(),
                             city: memberForm.find('#member-town').val(),
                             municipality: memberForm.find('#member-municipality').val(),
-                            membership: memberForm.find('#member-membership').val()
+                            membership: memberForm.find('#member-membership').val(),
+                            accept: memberForm.find('#member-terms').val()
                         }
                     },
                     success: (response) => { 
