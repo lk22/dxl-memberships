@@ -76,53 +76,11 @@
                             <?php
                         }
                     ?>
-                    <?php
-					// if ( $membership > 0) {
-					// 	if( $membership->length == 6 ) {
-					// 		$length = date("d-m-Y", strtotime('last day of June this year '));
-					// 		if( $existingMember->approved_date > strtotime('las day of June this year') ) {
-					// 			$length = date("d-m-Y", strtotime('last day of December this year')); 
-					// 		}
-					// 	} else if( $membership->length == 12 ) {
-					// 		$length = date("d-m-Y", strtotime('last day of December this year'));
-					// 	}
-
-					// 	echo "<h5 class='label label-success'>Betalt</h5>";
-					// 	echo "<p>Betalt " . date("d-m.Y", $existingMember->approved_date) . "</p>";
-					// 	echo "<p>Udløbsdato: " . $length . "</p>";
-					// 	if( $existingMember->auto_renew ) {
-					// 		$renewalClass = "alert alert-success renewal-text";
-					// 		$renewal = "ønsker auto fornyelse af medlemsskab";
-					// 		//echo "<button class='button-primary' onclick='updateAutoRenewal(" . $existingMember . ", 'deactivate')'>Deaktiver autofornyelse</button>";
-					// 	} else {
-					// 		$renewalClass = "alert alert-warning renewal-text";
-					// 		$renewal = "ønsker ikke fornyelse af medlemsskab";
-					// 		//echo "<button class='button-primary' onclick='updateAutoRenewal(" . $existingMember. ", 'activate')'>Aktiver autofornyelse</button>";
-					// 	}
-					// 	echo "<p class='" . $renewalClass . "'>" . $renewal . "</p>"; 
-					// 	// var_dump($existingMember);
-					// 	echo "<div><button class='btn btn-danger' onclick='cancelMembership(" . $existingMember->id . ");'>Afmeld</button><div>";
-					// } else {
-					// 	echo "<small class='label label-danger'>Afventer betaling</small> ";
-					// 	echo "<button class='has_payed button-primary' style='cursor:pointer' onclick='updatePaymentOnMember(" . $existingMember->id . ")'>Har Medlemmet betalt?</button>";
-					// }
-					
-				?>
                 <?php
                     if( $member->is_payed ) {
                         ?>
                             <div class="member-actions">
                                 <?php 
-                                    if( $member->profile_activated ) {
-                                        ?>
-                                            <button class="deactivate-profile-button button-primary" data-action="deactivate-profile" data-member="<?php echo $member->id ?>">Deaktiver profil</button>
-                                        <?php
-                                    } else {
-                                        ?>
-                                            <button class="activate-profile-button button-primary" data-action="activate-profile" data-member="<?php echo $member->id ?>">Aktiver profil</button>
-                                        <?php
-                                    }
-
                                     if( isset($profile) ) {
                                         if( $profile->is_trainer ) {
                                             ?>

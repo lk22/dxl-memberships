@@ -464,10 +464,10 @@
                         "response" => "bruger oprettelse fejlede, bruger eksistere allerede"
                     ]);
 
-                    $this->dxl->log("tried to create user for member: " .$member->name ."(" . $member->gamertag . ") from action: " . __METHOD__ . " " . wp_json_encode($user), 'memberships', 2);
+                    $this->dxl->log("tried to create user for member: " .$member->gamertag . " from action: " . __METHOD__ . " " . wp_json_encode($user), 'memberships', 2);
                     wp_die();
                 }
-
+                $this->dxl->log("Accepting payment for member: " . $member->gamertag . " " . __METHOD__, "memberships");
                 $accepted = $this->service->acceptPayed($member->id, $user);
                 
                 if( $accepted == false ) {
@@ -476,7 +476,7 @@
                         "response" => "Noget gik galt, kunne ikke betalings status"
                     ]);
 
-                    $this->dxl->log("tried to update member: " . $member->name ."(" . $member->gamertag . ") from action: " . __METHOD__, 'memberships', 2);
+                    $this->dxl->log("tried to update member: " . $member->gamertag ."(" . $member->gamertag . ") from action: " . __METHOD__, 'memberships', 2);
                     wp_die();
                 }
 
@@ -542,7 +542,7 @@
                     "response" => $member->gamertag . " er deaktiveret"
                 ]);
 
-                $this->dxl->log("Deactivated member: " . $member->gamertag, "memberships");
+                $this->dxl->log("Member: " . $member->gamertag . " deactivated", "memberships");
                 wp_die();
             }
 
@@ -597,6 +597,7 @@
                 switch( $action ) {
                     /**
                      * give member access to use the profile dashboard attached to the member
+                     * @deprecated version 1.0.0 - 11-02-2023
                      */
                     case "activate-profile":
                         $this->dxl->log("Triggering update action: 'activate-profile' " . __METHOD__, "memberships");
@@ -626,6 +627,7 @@
 
                     /**
                      * Remove access to member attached profile dashboard
+                     * @deprecated version 1.0.0 - 11-02-2023
                      */
                     case "deactivate-profile":
                         $this->dxl->log("Triggering update action: 'deactive-profile' " . __METHOD__, "memberships");
