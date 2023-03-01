@@ -98,6 +98,17 @@
                         ?>
                     </select>
                 </div>
+                <!-- auto renewal field for signing up for membership -->
+                <h3>Ønsker du autofornyelse?</h3>
+                <div class="form-group member-auto-renewal">
+                    <div class="input">
+                        <select name="member-auto-renewal" id="member-auto-renewal">
+                            <option value="">Vælg mulighed</option>
+                            <option value="yes">Ja</option>
+                            <option value="no">Nej</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <!--
