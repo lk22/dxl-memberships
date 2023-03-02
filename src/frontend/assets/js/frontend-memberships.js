@@ -53,7 +53,8 @@ console.log(dxl_member_vars.action[0]);
                             city: memberForm.find('#member-town').val(),
                             municipality: memberForm.find('#member-municipality').val(),
                             membership: memberForm.find('#member-membership').val(),
-                            accept: memberForm.find('#member-terms').val()
+                            accept: memberForm.find('#member-terms').val(),
+                            auto_renewal: memberForm.find('#member-auto-renewal').val()
                         }
                     },
                     success: (response) => { 
