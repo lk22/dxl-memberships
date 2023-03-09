@@ -50,7 +50,7 @@ if( !class_exists('LookExpiredMemberships') ) {
             
             $logger = (new Core())->getUtility('Logger');
             
-            $logger->logCronReport('Running LookExpiredMemberships cron job, looking for expired memberships hold on...', 4);
+            $logger->log('Running LookExpiredMemberships cron job, looking for expired memberships hold on...', 4);
 
             $members = $this->memberRepository
                 ->select([
@@ -81,7 +81,7 @@ if( !class_exists('LookExpiredMemberships') ) {
                         'is_pending' => 1
                     ], $member->id);
                     
-                    $logger->logCronReport("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 6 måneder", 4);
+                    $logger->log("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 6 måneder", 4);
                     
                     $sendCanceledMail = (new MembershipCanceled($member))
                         ->setSubject("Annulleret medlemskab")
@@ -100,7 +100,7 @@ if( !class_exists('LookExpiredMemberships') ) {
                         'is_pending' => 1
                     ], $member->id);
                     
-                    $logger->logCronReport("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 12 måneder", 4);
+                    $logger->log("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 12 måneder", 4);
                     
                     $sendCanceledMail = (new MembershipCanceled($member))
                         ->setSubject("Annulleret medlemskab")
