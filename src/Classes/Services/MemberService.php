@@ -199,7 +199,8 @@ if( ! class_exists('MemberService') )
             $updated = $wpdb->update($wpdb->prefix . "members", [
                 "is_payed" => 1,
                 "profile_activated" => 1,
-                "user_id" => (int) $user_id
+                "user_id" => (int) $user_id,
+                "approved_date" => time() // -- current day
             ], [$this->primaryIdentifier => $member]);
 
             if( ! $updated ) {
@@ -229,7 +230,7 @@ if( ! class_exists('MemberService') )
             $updated = $wpdb->update($wpdb->prefix . "members", [
                 "is_payed" => 0,
                 "profile_activated" => 0,
-                "user_id" => 0
+                "user_id" => 0,
             ], [$this->primaryIdentifier => $member]);
 
             if ( ! $updated ) {
