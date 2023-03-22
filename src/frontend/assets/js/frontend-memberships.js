@@ -33,8 +33,6 @@ console.log(dxl_member_vars.action[0]);
                     }
                 }
 
-                console.log(data);
-
                 $.ajax({
                     method: 'POST', 
                     url: dxl_member_vars.ajaxurl, 
@@ -54,7 +52,7 @@ console.log(dxl_member_vars.action[0]);
                             municipality: memberForm.find('#member-municipality').val(),
                             membership: memberForm.find('#member-membership').val(),
                             accept: memberForm.find('#member-terms').val(),
-                            auto_renewal: memberForm.find('#member-auto-renewal').val()
+                            auto_renewal: (memberForm.find('#member-auto-renewal').val() === "yes") ? 1 : 0
                         }
                     },
                     success: (response) => { 

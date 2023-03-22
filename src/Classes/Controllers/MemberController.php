@@ -309,7 +309,7 @@
                     "is_payed" => 0,
                     "membership" => $_REQUEST["member"]["membership"],
                     "profile_activated" => 0,
-                    "auto_renew" => $_REQUEST["member"]["auto_renew"],
+                    "auto_renew" => $_REQUEST["member"]["auto_renewal"],
                     "approved_date" => 0,
                     "created_at" => strtotime('now', time())
                 ]);
