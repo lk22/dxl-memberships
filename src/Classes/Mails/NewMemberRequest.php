@@ -58,7 +58,7 @@ if ( !class_exists('NewMemberRequest') ) {
             $template .= "<li>Postnummer: " . $this->member->zipcode . "</li>";
             $template .= "<li>By: " . $this->member->city . "</li>";
             $template .= "<li>Kommune: " . $this->member->municipality . "</li>";
-            $template .= "<li>Fødselsdag: " . $this->member->birthyear . "</li>";
+            $template .= "<li>Fødselsdato: " . $this->member->birthyear . "</li>";
             $template .= "<li>Medlemskabstype: " . $this->membership->name . "</li>";
             $template .= "</ul>";
             return $template;

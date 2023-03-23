@@ -45,7 +45,7 @@
                         "Bynavn" => $member->city,
                         "Kommune" => $member->municipality,
                         "Email" => $member->email,
-                        "Fødselsår" => $member->birthyear
+                        "Fødselsdato" => $member->birthyear
                     ] as $key => $value) {
                         ?>
                             <div class="member-<?php echo $key ?>" style="margin-bottom: 10px">
