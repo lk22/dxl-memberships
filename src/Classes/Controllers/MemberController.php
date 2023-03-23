@@ -2,11 +2,9 @@
 
     namespace DxlMembership\Classes\Controllers;
     require_once(ABSPATH . "wp-content/plugins/dxl-core/src/Classes/Core.php");
-    require_once(ABSPATH . "wp-content/plugins/dxl-core/src/Classes/Discord/DiscordWebhookService.php");
 
     // Core
     use DXL\Classes\Core;
-    // use DXL\Classes\Discord\DiscordWebhookService;
 
     // Interfaces
     use Dxl\Interfaces\ViewInterface;
@@ -41,9 +39,6 @@
     {
         class MemberController extends Controller  
         {
-
-            public $discordWebhookService;
-
             /**
              * Member Constructor
              */
@@ -59,7 +54,7 @@
                 $this->dxl = new Core();
                 $this->service = new MemberService();
                 $this->request = new MemberRequest();
-                // $this->discordWebhookService = new DiscordWebhookService("https://discord.com/api/webhooks/" . get_option('dxl_discord_webhook_url'));
+                
                 $this->registerAdminActions();
                 $this->registerGuestActions();
             }
@@ -491,9 +486,6 @@
                 ]);
                 
                 $this->dxl->log("Member payment status updated successfully", 'memberships');
-
-                // $this->discordWebhookService->send_message("Kære DXL, vi har netop blevet et medlem rigere i foreningen. Velkommen til '" . $member->gamertag . "'");
-
                 wp_die();
             }
 
