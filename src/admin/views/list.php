@@ -52,10 +52,10 @@
                     </div>
                 </div>
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane show active" id="v-pills-payed" role="tabpanel" aria-labelledby="v-pills-lan-tab" tabindex="0">
+                    <div class="tab-pane show active fadeUp" id="v-pills-payed" role="tabpanel" aria-labelledby="v-pills-lan-tab" tabindex="0">
                         <?php require_once(dirname(__FILE__) . '/partials/payed-members.php'); ?>
                     </div>
-                    <div class="tab-pane" id="v-pills-pending" role="tabpanel" aria-labelledby="v-pills-online-tab" tabindex="0">
+                    <div class="tab-pane fadeUp" id="v-pills-pending" role="tabpanel" aria-labelledby="v-pills-online-tab" tabindex="0">
                         <?php require_once(dirname(__FILE__) . '/partials/pending-members.php'); ?>
                     </div>
                 </div>

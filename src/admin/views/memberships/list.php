@@ -5,7 +5,7 @@
             <button class="button-primary create-new-membership-btn" data-bs-toggle="modal" data-bs-target="#createMembershipsModal">Opret kontingent <span class="dashicons dashicons-plus"></span></button>
         </div>
     </div>
-    <div class="content">
+    <div class="content fadeUp">
         <?php if( $memberships ) { ?>
         <table class="widefat fixed striped">
             <thead>

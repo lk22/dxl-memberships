@@ -1,4 +1,4 @@
-<div class="dxl-admin-members member-details-container">
+<div class="wrap dxl-admin-members member-details-container">
     <div class="header">
         <h2><?php echo $member->name; ?> <span><small>(<?php echo $membership->name ?? '' ?>)</small></span></h2>
         <div class="actions">
@@ -33,9 +33,9 @@
                 
             </div>
         </div>
-        <div class="member-details details">
+        <div class="member-details details fadeUp">
             <div class="left-details">
-                <h1 class="fw-normal">Medlems informationer</h1>
+                <h1 class="fw-bold">Medlems informationer</h1>
                 <?php
                     foreach([
                         "Medlemsnummer" => $member->member_number,
@@ -48,8 +48,8 @@
                         "Fødselsdato" => $member->birthyear
                     ] as $key => $value) {
                         ?>
-                            <div class="member-<?php echo $key ?>" style="margin-bottom: 10px">
-                                <h4><?php echo $key; ?>: <small class="key-<?php echo $key; ?>"><?php echo $value; ?></small></h4> 
+                            <div class="member-<?php echo $key ?>">
+                                <p><?php echo $key; ?>: <small class="key-<?php echo $key; ?>"><?php echo $value; ?></small></p> 
                             </div>
                         <?php
                     }
@@ -64,18 +64,19 @@
                     ?>
                 </div>
                 <div class="has_payed">
-                    <p>Betalings status: </p>
-                    <?php 
-                        if( $member->is_payed ){
-                            ?>
-                                <div class="status-label success"><span>betalt</span></div>
-                            <?php
-                        } else {
-                            ?>
-                                <div class="status-label danger"><span>Manger betaling</span></div> 
-                            <?php
-                        }
-                    ?>
+                    <p class="d-flex">Betalings status: 
+                        <?php 
+                            if( $member->is_payed ){
+                                ?>
+                                    <span class="status-label success float-end ms-2"><span>betalt</span></span>
+                                <?php
+                            } else {
+                                ?>
+                                    <span class="status-label danger float-end ms-2"><span>Manger betaling</span></span> 
+                                <?php
+                            }
+                        ?>
+                    </p>
                 <?php
                     if( $member->is_payed ) {
                         ?>
@@ -116,30 +117,37 @@
                     }
                 ?>
                 </div>
-                <div class="membership-activity-log mt-4">
-                    <h3>Kontingent aktivitet</h3>
-                    <hr>
-                    <?php 
-                        if ( $activities ) {
-                            foreach($activities as $activity) {
-                                ?>
-                                    <div class="activity">
-                                        <div class="row mt-2">
-                                            <div class="col-2">
-                                                <p><?php echo date("d-m-Y H:i:s", $activity->created_at + 7200 ) ?></p>
-                                            </div>
-                                            <div class="col-8">
-                                                <p class="mb-0 lead"><?php echo $activity->status ?></p>
-                                                <p><?php echo $activity->status_message ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php
-                            }
-                        }
-                    ?>
-                </div>
+                
             </div>
+            
+        </div>
+        <div class="membership-activity-log mt-4 bg-success text-white p-4 rounded fadeUp">
+            <h3>Kontingent aktivitet</h3>
+            <hr>
+            <?php 
+                if ( $activities ) {
+                    foreach($activities as $activity) {
+                        ?>
+                            <div class="activity">
+                                <div class="row mt-2">
+                                    <div class="col-2">
+                                        <p><?php echo date("d-m-Y H:i:s", $activity->created_at + 7200 ) ?></p>
+                                    </div>
+                                    <div class="col-8">
+                                        <p class="mb-0 lead"><?php echo $activity->status ?></p>
+                                        <p><?php echo $activity->status_message ?></p>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        <?php
+                    }
+                } else {
+                    ?>
+                        <div class="alert alert-primary">Vi fandt ingen kontingent aktivitet</div>
+                    <?php
+                }
+            ?>
         </div>
     </div>
 </div>
