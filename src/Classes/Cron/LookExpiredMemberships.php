@@ -6,6 +6,9 @@ use DxlMembership\Classes\Repositories\MembershipRepository;
 
 use DxlMembership\Classes\Mails\MembershipCanceled;
 
+use DxlEvents\Classes\Repositories\LanRepository;
+use DxlEvents\Classes\Repositories\LanParticipantRepository;
+
 use DXL\Classes\Core;
 
 if( !defined('ABSPATH') ) {
@@ -30,11 +33,28 @@ if( !class_exists('LookExpiredMemberships') ) {
         protected $membershipRepository;
 
         /**
+         * LanRepository
+         *
+         * @var \DxlEvents\Classes\Repositories\LanRepository
+         */
+        protected $lanRepository;
+
+        /**
+         * Undocumented variable
+         *
+         * @var \DxlEvents\Classes\Repositories\LanParticipantRepository
+         */
+        protected $lanParticipantRepository;
+
+        /**
          * Constructor
          */
         public function __construct()
         {
             $this->memberRepository = new MemberRepository();
+            $this->membershipRepository = new MembershipRepository();
+            $this->lanParticipantRepository = new LanParticipantRepository();
+            $this->lanRepository = new LanRepository();
             if( isset($_GET['task']) && $_GET["task"] == 'dxl_look_expired_memberships' ) {
                 $this->lookup_expired_memberships();
             }
@@ -67,14 +87,20 @@ if( !class_exists('LookExpiredMemberships') ) {
             $fullYearExpiration = date('d-m-Y', strtotime('first day of next year'));
             $halvYearExpiration = date('d-m-Y', strtotime('last day of june'));
 
-            foreach ($members as $member) {
-                
+            // find the latest lan event
+            $event = $this->lanRepository->select()->orderBy('id', 'DESC')->limit(1)->get();
 
+            foreach ($members as $member) {
+
+                // find the member participant
+                $lanParticipant = $this->lanParticipantRepository->select()->where('member_id', $member->id)->whereAnd('event_id', $event->id)->get();
+                
                 // if full year membership is expired
                 if (
                     $member->membership == 7 && 
                     $currentDate > $fullYearExpiration &&
-                    date('d-m-Y', $member->approved_date) > $fullYearExpiration
+                    date('d-m-Y', $member->approved_date) > $fullYearExpiration && 
+                    count($lanParticipant) == 0
                 ) {
                     $this->memberRepository->update([
                         'is_payed' => 0,
@@ -93,7 +119,8 @@ if( !class_exists('LookExpiredMemberships') ) {
                 if (
                     $member->membership == 6 && 
                     $currentDate > $halvYearExpiration &&
-                    date('d-m-Y', $member->approved_date) > $halvYearExpiration
+                    date('d-m-Y', $member->approved_date) > $halvYearExpiration &&
+                    count($lanParticipant) == 0
                 ) {
                     $this->memberRepository->update([
                         'is_payed' => 0,
