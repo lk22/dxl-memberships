@@ -87,14 +87,7 @@ if( !class_exists('LookExpiredMemberships') ) {
             $fullYearExpiration = date('d-m-Y', strtotime('first day of next year'));
             $halvYearExpiration = date('d-m-Y', strtotime('last day of june'));
 
-            // find the latest lan event
-            $event = $this->lanRepository->select()->descending('id')->limit(1)->get();
-
             foreach ($members as $member) {
-
-                // find the member participant
-                $lanParticipant = $this->lanParticipantRepository->select()->where('member_id', $member->id)->whereAnd('event_id', $event->id)->get();
-                var_dump($lanParticipant);
                 // if full year membership is expired
                 if (
                     $member->membership == 7 && 
