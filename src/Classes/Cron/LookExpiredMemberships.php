@@ -6,9 +6,6 @@ use DxlMembership\Classes\Repositories\MembershipRepository;
 
 use DxlMembership\Classes\Mails\MembershipCanceled;
 
-use DxlEvents\Classes\Repositories\LanRepository;
-use DxlEvents\Classes\Repositories\LanParticipantRepository;
-
 use DXL\Classes\Core;
 
 if( !defined('ABSPATH') ) {
@@ -33,28 +30,12 @@ if( !class_exists('LookExpiredMemberships') ) {
         protected $membershipRepository;
 
         /**
-         * LanRepository
-         *
-         * @var \DxlEvents\Classes\Repositories\LanRepository
-         */
-        protected $lanRepository;
-
-        /**
-         * Undocumented variable
-         *
-         * @var \DxlEvents\Classes\Repositories\LanParticipantRepository
-         */
-        protected $lanParticipantRepository;
-
-        /**
          * Constructor
          */
         public function __construct()
         {
             $this->memberRepository = new MemberRepository();
             $this->membershipRepository = new MembershipRepository();
-            $this->lanParticipantRepository = new LanParticipantRepository();
-            $this->lanRepository = new LanRepository();
             if( isset($_GET['task']) && $_GET["task"] == 'dxl_look_expired_memberships' ) {
                 $this->lookup_expired_memberships();
             }
