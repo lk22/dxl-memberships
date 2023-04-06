@@ -98,9 +98,8 @@ if( !class_exists('LookExpiredMemberships') ) {
                 // if full year membership is expired
                 if (
                     $member->membership == 7 && 
-                    $currentDate > $fullYearExpiration &&
-                    date('d-m-Y', $member->approved_date) > $fullYearExpiration && 
-                    count($lanParticipant) == 0
+                    $currentDate == $fullYearExpiration &&
+                    date('d-m-Y', $member->approved_date) > $fullYearExpiration
                 ) {
                     $this->memberRepository->update([
                         'is_payed' => 0,
@@ -118,11 +117,10 @@ if( !class_exists('LookExpiredMemberships') ) {
                 // if half year membership is expired
                 if (
                     $member->membership == 6 && 
-                    $currentDate > $halvYearExpiration &&
-                    date('d-m-Y', $member->approved_date) > $halvYearExpiration &&
-                    count($lanParticipant) == 0
+                    $currentDate == $halvYearExpiration &&
+                    date('d-m-Y', $member->approved_date) > $halvYearExpiration 
                 ) {
-                    $this->memberRepository->update([
+                    $this->memberRepository->update([ 
                         'is_payed' => 0,
                         'is_pending' => 1
                     ], $member->id);
