@@ -101,10 +101,10 @@ if( !class_exists('LookExpiredMemberships') ) {
                     
                     $logger->log("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 6 måneder", 4);
                     
-                    $sendCanceledMail = (new MembershipCanceled($member))
-                        ->setSubject("Annulleret medlemskab")
-                        ->setReciever($member->email)
-                        ->send();
+                    // $sendCanceledMail = (new MembershipCanceled($member))
+                    //     ->setSubject("Annulleret medlemskab")
+                    //     ->setReciever($member->email)
+                    //     ->send();
                 }
 
                 // if half year membership is expired
@@ -120,10 +120,10 @@ if( !class_exists('LookExpiredMemberships') ) {
                     
                     $logger->log("Member {$member->id}: {$member->gamertag} is now deactivated due to remaining payment, with folloing membership: 12 måneder", 4);
                     
-                    $sendCanceledMail = (new MembershipCanceled($member))
-                        ->setSubject("Annulleret medlemskab")
-                        ->setReciever($member->email)
-                        ->send();
+                    // $sendCanceledMail = (new MembershipCanceled($member))
+                    //     ->setSubject("Annulleret medlemskab")
+                    //     ->setReciever($member->email)
+                    //     ->send();
                 }
             }
         }
