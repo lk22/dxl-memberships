@@ -24,6 +24,6 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         cp ~/.ssh/id_rsa ~/.ssh/id_rsa.pem
     
-    - name: Deploy to Simply.com
+    - name: Deploy to staging
       run: |  
         sshpass -p ${{secrets.SSH_PASSWORD}} ssh -oStrictHostKeyChecking=no ${{secrets.SSH_USERNAME}}@${{secrets.SSH_HOSTNAME}} "cd staging/wp-content/plugins/dxl-memberships && git pull" 
