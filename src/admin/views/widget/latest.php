@@ -6,6 +6,7 @@
     <thead>
         <th>Navn:</th>
         <th>Gamertag:</th>
+        <th>Medlemsskab</th>
     </thead>
     <tbody>
         <?php
