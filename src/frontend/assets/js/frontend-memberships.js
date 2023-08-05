@@ -1,4 +1,3 @@
-console.log(dxl_member_vars.action[0]);
 (function($) {
 
     const frontendMember = {
@@ -10,28 +9,9 @@ console.log(dxl_member_vars.action[0]);
         bindActions: function() {
             const self = this;
             const memberForm = self.container.find('.frontendCreateMemberForm');
-           
+
             memberForm.submit((e) => {
                 e.preventDefault();
-
-
-                const data = {
-                    action: dxl_member_vars.action[0],
-                    dxl_member_nonce: dxl_member_vars.dxl_member_nonce,
-                    member: {
-                        name: memberForm.find('#member-name').val(),
-                        gamertag: memberForm.find('#member-gamertag').val(),
-                        email: memberForm.find('#member-email').val(),
-                        phone: memberForm.find('#member-phone').val(),
-                        birthyear: memberForm.find('#member-birthdate').val(),
-                        gender: memberForm.find('#member-gender').val(),
-                        address: memberForm.find('#member-address').val(),
-                        zipcode: memberForm.find('#member-zipcode').val(),
-                        city: memberForm.find('#member-town').val(),
-                        municipality: memberForm.find('#member-municipality').val(),
-                        membership: memberForm.find('#member-membership').val()
-                    }
-                }
 
                 $.ajax({
                     method: 'POST', 
@@ -71,7 +51,9 @@ console.log(dxl_member_vars.action[0]);
                             $('.error-message').html("<h4>" + json.member.response + "</h4>");
                         }
                     },
-                    error: (error) => {console.log(error);}
+                    error: (error) => {
+                        $('.error-message').html("<h4>Der gik noget galt ved oprettelse af din ansøgning</h4>");
+                    }
                 });
             });
         },
