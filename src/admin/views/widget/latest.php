@@ -13,7 +13,7 @@
                 ?>
                     <tr>
                         <td><?php echo $member["name"]; ?></td>
-                        <td><?php echo $member["name"]; ?></td>
+                        <td><?php echo $member["gamertag"]; ?></td>
                         <td><?php echo $member["membership"]; ?></td>
                     </tr>
                 <?php

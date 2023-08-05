@@ -320,7 +320,7 @@
                         "error" => true,
                         "response" => "Noget gik galt, kunne ikke oprette medlem"
                     ]); 
-                    $logger->log("Failed to create new member from frontend, " . __METHOD__, 'memberships');
+                    $logger->log("Failed to create new member from frontend, " . json_encode($_REQUEST["member"]) . " " . __METHOD__, 'memberships');
                     wp_die();
                 }
 
@@ -679,7 +679,7 @@
                             "response" => $member->gamertag . " er nu træner"
                         ]);
 
-                        $this->dxl->log($member->gamertag . " got trainer permissions assigned", "memberships");
+                        $this->dxl->log($member->gamertag . " trainer permissions assigned", "memberships");
                         
                         wp_die();
 
