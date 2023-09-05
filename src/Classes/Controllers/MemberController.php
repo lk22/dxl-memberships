@@ -293,12 +293,17 @@
                     wp_die();
                 }
 
+                // echo json_encode($_REQUEST["member"]);
+                // wp_die();
+
+                $birth = $_REQUEST["member"]["birthyear"] . "-" . $_REQUEST["member"]["birthdate_day"] . "-" . $_REQUEST["member"]["birthdate_month"];
+
                 $created = $this->service->createMember([
                     "member_number" => $existingMember->member_number + 1,
                     "user_id" => 0,
                     "name" => $_REQUEST["member"]["name"],
                     "gamertag" => $_REQUEST["member"]["gamertag"],
-                    "birthyear" => strtotime('now', $_REQUEST["member"]["birthyear"]),
+                    "birthyear" => $_REQUEST["member"]["birthyear"],
                     "email" => $_REQUEST["member"]["email"],
                     "phone" => $_REQUEST["member"]["phone"],
                     "gender" => $_REQUEST["member"]["gender"],
