@@ -296,14 +296,14 @@
                 // echo json_encode($_REQUEST["member"]);
                 // wp_die();
 
-                $birth = $_REQUEST["member"]["birthyear"] . "-" . $_REQUEST["member"]["birthdate_day"] . "-" . $_REQUEST["member"]["birthdate_month"];
+                $birth = $_REQUEST["member"]["year"] . "-" . $_REQUEST["member"]["month"] . "-" . $_REQUEST["member"]["day"];
 
                 $created = $this->service->createMember([
                     "member_number" => $existingMember->member_number + 1,
                     "user_id" => 0,
                     "name" => $_REQUEST["member"]["name"],
                     "gamertag" => $_REQUEST["member"]["gamertag"],
-                    "birthyear" => $_REQUEST["member"]["birthyear"],
+                    "birthyear" => $birth,
                     "email" => $_REQUEST["member"]["email"],
                     "phone" => $_REQUEST["member"]["phone"],
                     "gender" => $_REQUEST["member"]["gender"],
