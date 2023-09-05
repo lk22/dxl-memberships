@@ -41,21 +41,18 @@
                             <label for="member-birthdate-day">
                                 Dag
                             </label>
-                            <!-- date field that validates year month and days -->
                             <input type="number" name="member_birthdate_day" id="member-birthdate-day" class="form-control" required>
                         </div>
                         <div class="col-4">
                             <label for="member-birthdate-month">
                                 Måned
                             </label>
-                            <!-- date field that validates year month and days -->
                             <input type="number" name="member_birthdate_month" id="member-birthdate-month" class="form-control" required>
                         </div>
                         <div class="col-4">
                             <label for="member-birthdate-year">
                                 Årstal
                             </label>
-                            <!-- date field that validates year month and days -->
                             <input type="number" name="member_birthdate_year" id="member-birthdate-year" class="form-control" required>
                         </div>
                     </div>
