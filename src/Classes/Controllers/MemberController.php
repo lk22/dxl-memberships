@@ -282,7 +282,7 @@
             {
                 $logger = $this->dxl->getUtility('Logger');
                 $existingMember = $this->service->getMember($_REQUEST["member"]["gamertag"]);
-
+                
                 if( $existingMember && $existingMember->gamertag == $_REQUEST["member"]["gamertag"] ) 
                 {
                     $this->dxl->response('member', [
@@ -293,8 +293,14 @@
                     wp_die();
                 }
 
-                // echo json_encode($_REQUEST["member"]);
-                // wp_die();
+                if ( ! $this->validateMember($_REQUEST["member"])["validated"] ) {
+                    $this->dxl->response('member', [
+                        "error" => true,
+                        "response" => $this->validateMember($_REQUEST["member"])["message"]
+                    ]);
+                    $logger->log("creating new member failed, validation failed, " . __METHOD__, 'memberships');
+                    wp_die();
+                }
 
                 $birth = $_REQUEST["member"]["year"] . "-" . $_REQUEST["member"]["month"] . "-" . $_REQUEST["member"]["day"];
 
@@ -319,7 +325,7 @@
                     "approved_date" => 0,
                     "created_at" => strtotime('now', time())
                 ]);
-
+    
                 if( !$created ) {
                     $this->dxl->response('member', [
                         "error" => true,
@@ -776,6 +782,43 @@
                         wp_die();
                         break;
                 }
+            }
+
+            /**
+             * validating member data before creating new member ressource
+             * @var array $member 
+             */
+            private function validateMember($member): array
+            {
+                // if zipcode is less than 4 or more than 4
+                if( strlen($member["zipcode"]) < 4 || strlen($member["zipcode"]) > 4 ) {
+                    return [
+                        "validated" => false,
+                        "message" => "Postnummer skal være 4 cifre"
+                    ];
+                }
+
+                // if phone number is not numeric or less than 8 or more than 8
+                if ( 
+                    ! is_numeric($member["phone"]) || 
+                    strlen($member["phone"]) < 8 ||
+                    strlen($member["phone"]) > 8
+                ) {
+                    return [
+                        "validated" => false,
+                        "message" => "Telefonnummer skal være 8 cifre"
+                    ];
+                }
+
+                // validate email 
+                if( ! filter_var($member["email"], FILTER_VALIDATE_EMAIL) ) {
+                    return [
+                        "validated" => false,
+                        "message" => "Email er ikke gyldig"
+                    ];
+                }
+                
+                return ["validated" => true, "message" => "Medlem er valideret"];
             }
         }
     }
