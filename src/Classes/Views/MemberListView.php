@@ -53,7 +53,7 @@
                     ->where('is_payed', 0)
                     ->descending('member_number')
                     ->get();
-                $memberships = $this->membershipRepository->all();
+                $memberships = $this->membershipRepository->all(); 
 
                 require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/admin/views/list.php";
             }
