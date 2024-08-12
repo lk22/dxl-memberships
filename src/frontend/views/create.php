@@ -36,26 +36,7 @@
                     Fødselsdato
                 </label>
                 <div class="input">
-                    <div class="row">
-                        <div class="col-4">
-                            <label for="member-birthdate-day">
-                                Dag
-                            </label>
-                            <input type="number" name="member_birthdate_day" id="member-birthdate-day" class="form-control" required>
-                        </div>
-                        <div class="col-4">
-                            <label for="member-birthdate-month">
-                                Måned
-                            </label>
-                            <input type="number" name="member_birthdate_month" id="member-birthdate-month" class="form-control" required>
-                        </div>
-                        <div class="col-4">
-                            <label for="member-birthdate-year">
-                                Årstal
-                            </label>
-                            <input type="number" name="member_birthdate_year" id="member-birthdate-year" class="form-control" required>
-                        </div>
-                    </div>
+                    <input type="date" name="member_birthdate" id="member-birthdate" required>
                 </div>
             </div>
 
