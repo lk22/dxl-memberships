@@ -45,8 +45,14 @@
             public function render() 
             {
                 global $wpdb;
-                $members = $this->memberRepository->select()->where('is_payed', 1)->get();
-                $notPayedMembers = $this->memberRepository->select()->where('is_payed', 0)->get();
+                $members = $this->memberRepository->select()
+                    ->where('is_payed', 1)
+                    ->descending('member_number')
+                    ->get();
+                $notPayedMembers = $this->memberRepository->select()
+                    ->where('is_payed', 0)
+                    ->descending('member_number')
+                    ->get();
                 $memberships = $this->membershipRepository->all();
 
                 require_once ABSPATH . "wp-content/plugins/dxl-memberships/src/admin/views/list.php";
