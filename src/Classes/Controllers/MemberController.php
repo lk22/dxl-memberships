@@ -309,7 +309,7 @@
                     "user_id" => 0,
                     "name" => $_REQUEST["member"]["name"],
                     "gamertag" => $_REQUEST["member"]["gamertag"],
-                    "birthyear" => $birth,
+                    "birthyear" => $_REQUEST["member"]["birthyear"],
                     "email" => $_REQUEST["member"]["email"],
                     "phone" => $_REQUEST["member"]["phone"],
                     "gender" => $_REQUEST["member"]["gender"],
