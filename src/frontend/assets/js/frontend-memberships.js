@@ -20,21 +20,8 @@
                         action: dxl_member_vars.action[0],
                         dxl_member_nonce: dxl_member_vars.dxl_member_nonce,
                         member: {
-                            name: memberForm.find('#member-name').val(),
-                            gamertag: memberForm.find('#member-gamertag').val(),
                             email: memberForm.find('#member-email').val(),
-                            phone: memberForm.find('#member-phone').val(),
-                            day: memberForm.find('#member-birthdate-day').val(),
-                            month: memberForm.find('#member-birthdate-month').val(),
-                            year: memberForm.find('#member-birthdate-year').val(),
                             gender: memberForm.find('#member-gender').val(),
-                            address: memberForm.find('#member-address').val(),
-                            zipcode: memberForm.find('#member-zipcode').val(),
-                            city: memberForm.find('#member-town').val(),
-                            municipality: memberForm.find('#member-municipality').val(),
-                            membership: memberForm.find('#member-membership').val(),
-                            accept: memberForm.find('#member-terms').val(),
-                            auto_renewal: (memberForm.find('#member-auto-renewal').val() === "yes") ? 1 : 0
                         }
                     },
                     success: (response) => { 
@@ -48,7 +35,6 @@
                             $('.success-container').find('.message').html('<p>' + json.member.response + '</p>');
                             memberForm.hide();
                             $('.success-container').show();
-                            
                         } else {
                             $('.error-message').html("<h4>" + json.member.response + "</h4>");
                         }
