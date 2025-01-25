@@ -46,4 +46,30 @@
         <div class="message"></div>
         <a href="/">Gå tilbage</a>
     </div>
+
+<button 
+    type="button" 
+    class="btn btn-primary" 
+    data-bs-toggle="modal" 
+    data-bs-target="#membershipCreatedModal" 
+>Open</button>
+</div>
+
+
+<div class="modal fade modal-lg" id="membershipCreatedModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Du er næsten færdig</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Du næsten færdig færdig med din indmelding i Danish Xbox League, gå videre for at færdiggøre din tilmelding</p>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Færdiggør tilmelding</button> -->
+                <a href="https://danishxboxleague.unioo.info/subscriptions" class="btn btn-success">Gå videre</a>
+            </div>
+        </div>
+    </div>
 </div>
