@@ -148,14 +148,14 @@ if( !class_exists('DXLMemberships') )
                 2
 			);
 
-            add_submenu_page(
-				'dxl-members',
-				'Kontingenter',
-				'Kontingenter',
-				'manage_options',
-				'dxl-memberships',
-				array($this, 'memberships_manager')
-			);
+            // add_submenu_page(
+			// 	'dxl-members',
+			// 	'Kontingenter',
+			// 	'Kontingenter',
+			// 	'manage_options',
+			// 	'dxl-memberships',
+			// 	array($this, 'memberships_manager')
+			// );
         }
         
         /**
