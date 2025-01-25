@@ -31,12 +31,9 @@
                         const hasError = self.checkForResponseError(json.member);
 
                         if( !hasError ){
-                            $('.success-container').find('.headline').html("<h2>Du er oprettet</h2>");
-                            $('.success-container').find('.message').html('<p>' + json.member.response + '</p>');
-                            memberForm.hide();
-                            $('.success-container').show();
+                            $('#membershipCreatedModal').modal('show');
                         } else {
-                            $('.error-message').html("<h4>" + json.member.response + "</h4>");
+                            $('#membershipCreatedModal').modal('show');
                         }
                     },
                     error: (error) => {

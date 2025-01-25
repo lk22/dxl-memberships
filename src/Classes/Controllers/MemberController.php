@@ -335,6 +335,9 @@
                 //$membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
 
                 $member = $this->memberRepository->find($created); // should give you the new member
+                // generating a random password
+                $password = wp_generate_password(12, false);
+                $user = wp_create_user($member->email, $password, $member->email);
         
                 // send new member request to admin
                 $this->dxl->response('member', ["response" => "Du er nu oprettet i vores system og vil blive taget hånd om dit medlemsskab"]);
@@ -460,7 +463,7 @@
                 $member = $this->service->getMemberById($member_id);
                 
                 $this->dxl->log("Activating member " . $member->gamertag . " " . __METHOD__, "memberships");
-                $user = wp_create_user($member->gamertag, $member->gamertag, $member->email);
+                //$user = wp_create_user($member->gamertag, $, $member->email);
             
                 if( isset($user->errors) ) {
                     $this->dxl->response('member', [

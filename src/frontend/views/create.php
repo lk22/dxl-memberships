@@ -46,13 +46,23 @@
         <div class="message"></div>
         <a href="/">Gå tilbage</a>
     </div>
+</div>
 
-<button 
-    type="button" 
-    class="btn btn-primary" 
-    data-bs-toggle="modal" 
-    data-bs-target="#membershipCreatedModal" 
->Open</button>
+<div class="modal fade modal-lg" id="membershipFailedModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">  
+                <h3>Der skete en fejl</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Der skete en fejl, vi kunne begynde din indmeldings process, prøv igen senere.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Luk</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
