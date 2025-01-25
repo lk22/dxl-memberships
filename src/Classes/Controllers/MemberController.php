@@ -154,6 +154,7 @@
              * creating new member resource from admin
              *
              * @return void
+             * @deprecated 25-01-2025
              */
             public function adminCreateMember()
             {
@@ -336,17 +337,6 @@
                 $member = $this->memberRepository->find($created); // should give you the new member
         
                 // send new member request to admin
-                $newMemberReceipt = (new NewMemberRequest($member, $membership))
-                    ->setSubject("Nyt medlemskab")
-                    ->setReciever("medlemskab@danishxboxleague.dk")
-                    ->send();
-
-                // send receipt to new member
-                // $memberRequestReceipt = (new MemberRequestReceipt($member, $membership))
-                //     ->setSubject("Kvittering medlemskab - " . $membership->name)
-                //     ->setReciever($member->email)
-                //     ->send();
-
                 $this->dxl->response('member', ["response" => "Du er nu oprettet i vores system og vil blive taget hånd om dit medlemsskab"]);
                 wp_die();
             }
@@ -355,6 +345,7 @@
              * Updating existing member
              *
              * @return void
+             * @deprecated 25-01-2025
              */
             public function adminUpdateMember() 
             {
@@ -408,6 +399,10 @@
                 wp_die();
             }
 
+            /**
+             * @return void
+             * @deprecated 25-01-2025
+             */
             public function adminDeleteMember()
             {
                 $logger = $this->dxl->getUtility('Logger');
@@ -445,6 +440,7 @@
              * Accept member payment and change payed status to payed
              *
              * @return void
+             * @deprecated 25-01-2025
              */
             public function adminAcceptPayment()
             {
@@ -500,6 +496,7 @@
              * Deactivate member payment
              *
              * @return void
+             * @deprecated 25-01-2025
              */
             public function adminDeactivatePayment()
             {
@@ -557,6 +554,7 @@
              * Member search action
              *
              * @return void
+             * @deprecated 25-01-2025
              */
             public function adminMemberSearch() 
             {
@@ -577,6 +575,7 @@
              * Execute member update actions
              *
              * @return void
+             * @deprecated 25-01-2025
              */
             public function adminMemberActionUpdate()
             {

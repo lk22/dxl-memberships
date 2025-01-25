@@ -24,14 +24,10 @@
                         ?>
                             <tr data-member="<?php echo $member->id ?>">
                                 <td>
-                                    <a href="<?php echo generate_dxl_subpage_url(['action' => 'details', 'id' => $member->id]); ?>">
-                                        <?php echo $member->email; ?>
-                                    </a>
-                                    <div class="actions hidden">
-                                        <span class="edit">
-                                            <a href='<?php echo generate_dxl_subpage_url(["action" => "details", "id" => $member->id]); ?>'>Rediger</a>
-                                        </span>
-                                    </div>
+                                    <!-- <a href="<?php //echo generate_dxl_subpage_url(['action' => 'details', 'id' => $member->id]); ?>">
+                                        <?php //echo $member->email; ?>
+                                    </a> -->
+                                    <?php echo $member->email; ?>
                                 </td>
                                 <td>
                                     <?php echo $member->gender; ?>
