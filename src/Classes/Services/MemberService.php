@@ -420,22 +420,8 @@ if( ! class_exists('MemberService') )
 
             // define field labels
             $sheet->setCellValue("A1", "DXL medlemmer")->getColumnDimension("A")->setAutoSize(true);
-            $sheet->setCellValue("A2", "Navn")->getColumnDimension("A")->setAutoSize(true);
-            $sheet->setCellValue("B2", "Medlemsnummer")->getColumnDimension("B")->setAutoSize(true);
-            $sheet->setCellValue("C2", "Gamertag")->getColumnDimension("C")->setAutoSize(true);
-            $sheet->setCellValue("D2", "Køn")->getColumnDimension("D")->setAutoSize(true);
-            $sheet->setCellValue("E2", "Fødselsdato")->getColumnDimension("E")->setAutoSize(true);
-            $sheet->setCellValue("F2", "Adresse")->getColumnDimension("F")->setAutoSize(true);
-            $sheet->setCellValue("G2", "Bynavn")->getColumnDimension("G")->setAutoSize(true);
-            $sheet->setCellValue("H2", "Postnr")->getColumnDimension("H")->setAutoSize(true);
-            $sheet->setCellValue("I2", "Komunne")->getColumnDimension("I")->setAutoSize(true);
-            $sheet->setCellValue("J2", "E-mail")->getColumnDimension("J")->setAutoSize(true);
-            $sheet->setCellValue("K2", "Tlf")->getColumnDimension("K")->setAutoSize(true);
-            $sheet->setCellValue("L2", "Medlemsskab")->getColumnDimension("L")->setAutoSize(true);
-            $sheet->setCellValue("M2", "Fornyelse")->getColumnDimension("M")->setAutoSize(true);
-            $sheet->setCellValue("N2", "Profil")->getColumnDimension("N")->setAutoSize(true);
-
-            
+            $sheet->setCellValue("A2", "E-mail")->getColumnDimension("A")->setAutoSize(true);
+            $sheet->setCellValue("B2", "Køn")->getColumnDimension("B")->setAutoSize(true);
 
             $styles = [
                 "font" => [
@@ -455,49 +441,19 @@ if( ! class_exists('MemberService') )
             $notPayedMembersSpreadsheet->getStyle('A1:M1')->applyFromArray($styles);
 
             $notPayedMembersSpreadsheet->setCellValue("A1", "DXL afventende medlemmer")->getColumnDimension("A")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("A2", "Navn")->getColumnDimension("A")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("B2", "Medlemsnummer")->getColumnDimension("B")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("C2", "Gamertag")->getColumnDimension("C")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("D2", "Køn")->getColumnDimension("D")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("E2", "Fødselsdato")->getColumnDimension("E")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("F2", "Adresse")->getColumnDimension("F")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("G2", "Bynavn")->getColumnDimension("G")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("H2", "Postnr")->getColumnDimension("H")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("I2", "Komunne")->getColumnDimension("I")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("J2", "E-mail")->getColumnDimension("J")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("K2", "Tlf")->getColumnDimension("K")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("L2", "Medlemsskab")->getColumnDimension("L")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("M2", "Fornyelse")->getColumnDimension("M")->setAutoSize(true);
-            $notPayedMembersSpreadsheet->setCellValue("N2", "Fornyelse")->getColumnDimension("N")->setAutoSize(true);
+            $notPayedMembersSpreadsheet->setCellValue("A2", "E-mail")->getColumnDimension("J")->setAutoSize(true);
+            $notPayedMembersSpreadsheet->setCellValue("B2", "Køn")->getColumnDimension("D")->setAutoSize(true);
 
             $styles["font"]["size"] = "16";
-            $sheet->getStyle('A2:N2')->applyFromArray($styles); 
-            $notPayedMembersSpreadsheet->getStyle('A2:N2')->applyFromArray($styles);
+            $sheet->getStyle('A2:B2')->applyFromArray($styles); 
+            $notPayedMembersSpreadsheet->getStyle('A2:B2')->applyFromArray($styles);
 
             
             $row = 3;
             foreach($payedMembers as $member) 
             {   
-                $sheet->setCellValue("A{$row}", $member->name)->getColumnDimension('A')->setAutoSize(true);
-                $sheet->setCellValue("B{$row}", $member->member_number)->getColumnDimension("B")->setAutoSize(true);
-                $sheet->setCellValue("C{$row}", $member->gamertag)->getColumnDimension('C')->setAutoSize(true);
-                $sheet->setCellValue("D{$row}", $member->gender)->getColumnDimension('D')->setAutoSize(true);
-                $sheet->setCellValue("E{$row}", $member->birthyear)->getColumnDimension('E')->setAutoSize(true);
-                $sheet->setCellValue("F{$row}", $member->address)->getColumnDimension('F')->setAutoSize(true);
-                $sheet->setCellValue("G{$row}", $member->city)->getColumnDimension('G')->setAutoSize(true);
-                $sheet->setCellValue("H{$row}", $member->zipcode)->getColumnDimension('H')->setAutoSize(true);
-                $sheet->setCellValue("I{$row}", $member->municipality)->getColumnDimension('I')->setAutoSize(true);
-                $sheet->setCellValue("J{$row}", $member->email)->getColumnDimension('J')->setAutoSize(true);
-                $sheet->setCellValue("K{$row}", $member->phone)->getColumnDimension('K')->setAutoSize(true);
-                $sheet->setCellValue("L{$row}", $member->membership_name)->getColumnDimension('L')->setAutoSize(true);
-                
-                $sheet->setCellValue(
-                    "M{$row}", ($member->auto_renew) ? "Ønsker Fornyelse" : "Ønsker ikke fornyelse"
-                )->getColumnDimension('M')->setAutoSize(true);
-                
-                $sheet->setCellValue(
-                    "N{$row}", ($member->profile_activated) ? "Aktiveret" : "Ikke aktiv"
-                )->getColumnDimension('N')->setAutoSize(true);
+                $sheet->setCellValue("A{$row}", $member->email)->getColumnDimension('J')->setAutoSize(true);
+                $sheet->setCellValue("B{$row}", $member->gender)->getColumnDimension('D')->setAutoSize(true);
 
                 $row++;
             }
@@ -507,26 +463,8 @@ if( ! class_exists('MemberService') )
              */
             $notPayedMemberRow = 3;
             foreach($notPayedMembers as $member) {
-                $notPayedMembersSpreadsheet->setCellValue("A{$notPayedMemberRow}", $member->name)->getColumnDimension('A')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("B{$notPayedMemberRow}", $member->member_number)->getColumnDimension("B")->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("C{$notPayedMemberRow}", $member->gamertag)->getColumnDimension('C')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("D{$notPayedMemberRow}", $member->gender)->getColumnDimension('D')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("E{$notPayedMemberRow}", $member->birthyear)->getColumnDimension('E')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("F{$notPayedMemberRow}", $member->address)->getColumnDimension('F')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("G{$notPayedMemberRow}", $member->city)->getColumnDimension('G')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("H{$notPayedMemberRow}", $member->zipcode)->getColumnDimension('H')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("I{$notPayedMemberRow}", $member->municipality)->getColumnDimension('I')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("J{$notPayedMemberRow}", $member->email)->getColumnDimension('J')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("K{$notPayedMemberRow}", $member->phone)->getColumnDimension('K')->setAutoSize(true);
-                $notPayedMembersSpreadsheet->setCellValue("L{$notPayedMemberRow}", $member->membership_name)->getColumnDimension('L')->setAutoSize(true);
-                
-                $notPayedMembersSpreadsheet->setCellValue(
-                    "M{$notPayedMemberRow}", ($member->auto_renew) ? "Ønsker Fornyelse" : "Ønsker ikke fornyelse"
-                )->getColumnDimension('m')->setAutoSize(true);
-
-                $notPayedMembersSpreadsheet->setCellValue(
-                    "N{$notPayedMemberRow}", ($member->profile_activated) ? "Aktiveret" : "Ikke aktiv"
-                )->getColumnDimension('n')->setAutoSize(true);
+                $notPayedMembersSpreadsheet->setCellValue("A{$notPayedMemberRow}", $member->email)->getColumnDimension('J')->setAutoSize(true);
+                $notPayedMembersSpreadsheet->setCellValue("B{$notPayedMemberRow}", $member->gender)->getColumnDimension('D')->setAutoSize(true);
 
                 $notPayedMemberRow++;
             }

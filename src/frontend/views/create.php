@@ -1,115 +1,25 @@
 <div class="dxl-membership-frontend membership-assigning">
     <form action="" class="frontendCreateMemberForm">
-        <div class="left-form">
-            <div class="form-group name">
-                <label for="member-name">Navn:</label>
-                <div class="input">
-                    <input type="text" id="member-name" name="member_name" placeholder="indtast medlemsnavn" required>
-                </div>
-            </div>
-
-            <div class="form-group gamertag">
-                <label for="member-gamertag">Gamertag:</label>
-                <div class="input">
-                    <input type="text" id="member-gamertag" name="member_gamertag" placeholder="indtast gamertag" required>
-                </div>
-            </div>
-
-            <div class="form-group email">
-                <label for="member-email">
-                    E-mail:
-                </label>
-                <div class="input">
-                    <input type="email" name="member_email" id="member-email" placeholder="indtast email" required>
-                </div>
-            </div>
-
-            <div class="form-group phonenumber">
-                <label for="member_phone">Telefonnr:</label>
-                <div class="input">
-                    <input type="tel", name="member_phone", id="member-phone" value="12345678" pattern="[0-9]{8}" required>
-                </div>
-            </div>
-
-            <div class="form-group birth">
-                <label for="member-birthdate">
-                    Fødselsdato
-                </label>
-                <div class="input">
-                    <input type="date" name="member_birthdate" id="member-birthdate" required>
-                </div>
-            </div>
-
-            <div class="form-group member-gender">
-                <label for="member-gender">Vælg køn</label>
-                <div class="input">
-                    <select name="member_gender" id="member-gender">
-                        <option value="">Vælg køn</option>
-                        <option value="mand">Mand</option>
-                        <option value="kvinde">Kvinde</option>
-                        <option value="andet">Andet</option>
-                    </select>
-                </div>
+        <div class="form-group email">
+            <label for="member-email">
+                E-mail:
+            </label>
+            <div class="input">
+                <input type="email" name="member_email" id="member-email" placeholder="indtast email" required>
             </div>
         </div>
-        <div class="right-form mt-3">
-            <h3>Adresse informationer</h3>
-            <div class="form-group address">
-                <label for="member-adress">Adresse</label>
-                <div class="input">
-                    <input type="text" name="member_adress" id="member-address" required>
-                </div>
-            </div>
 
-            <div class="form-group zipcode">
-                <label for="member-zipcode">Postnummer</label>
-                <div class="input">
-                    <input type="text" name="member_zipcode" id="member-zipcode" required>
-                </div>
+        <div class="form-group member-gender">
+            <label for="member-gender">Vælg køn</label>
+            <div class="input">
+                <select name="member_gender" id="member-gender">
+                    <option value="">Vælg køn</option>
+                    <option value="mand">Mand</option>
+                    <option value="kvinde">Kvinde</option>
+                    <option value="andet">Andet</option>
+                </select>
             </div>
-
-            <div class="form-group town">
-                <label for="member-town">Bynavn:</label>
-                <div class="input">
-                    <input type="text" name="member_town" id="member-town" required>
-                </div>
-            </div>
-
-            <div class="form-group municipality">
-                <label for="member-municipality">Komunne:</label>
-                <div class="input">
-                    <input type="text" name="member_municipality" id="member-municipality" required>
-                </div>
-            </div><br>
-
-            <h3>Vælg medlemsskab</h3>
-            <div class="form-group member-membership">
-                <div class="input">
-                    <select name="member_membership" id="member-membership">
-                        <?php 
-                            foreach($memberships as $membership) 
-                            {
-                                if( strtotime('today') > strtotime('last day of june this year') && $membership->length == 12) {
-                                            
-                                } else {
-                                    echo "<option value=" . $membership->id .">" . $membership->name . " (" . $membership->price . " DKK)</option>";
-                                }
-                            }
-                        ?>
-                    </select>
-                </div>
-                <!-- auto renewal field for signing up for membership -->
-                <h3>Ønsker du autofornyelse?</h3>
-                <div class="form-group member-auto-renewal">
-                    <div class="input">
-                        <select name="member-auto-renewal" id="member-auto-renewal">
-                            <option value="">Vælg mulighed</option>
-                            <option value="yes">Ja</option>
-                            <option value="no">Nej</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+        </div>
 
             <!--
                 create checkbox accept terms and conditions
@@ -135,5 +45,41 @@
         <div class="headline"></div>
         <div class="message"></div>
         <a href="/">Gå tilbage</a>
+    </div>
+</div>
+
+<div class="modal fade modal-lg" id="membershipFailedModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">  
+                <h3>Der skete en fejl</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Der skete en fejl, vi kunne begynde din indmeldings process, prøv igen senere.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Luk</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-lg" id="membershipCreatedModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Du er næsten færdig</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Du næsten færdig færdig med din indmelding i Danish Xbox League, gå videre for at færdiggøre din tilmelding</p>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Færdiggør tilmelding</button> -->
+                <a href="https://danishxboxleague.unioo.info/subscriptions" class="btn btn-success">Gå videre</a>
+            </div>
+        </div>
     </div>
 </div>
