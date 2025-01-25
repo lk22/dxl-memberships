@@ -163,19 +163,19 @@
                     $member = $this->service->createMember([
                         "member_number" => $_REQUEST["member"]["member_number"],
                         "user_id" => 0,
-                        "name" => $_REQUEST["member"]["name"],
-                        "gamertag" => $_REQUEST["member"]["gamertag"],
-                        "birthyear" => $_REQUEST["member"]["birthyear"],
-                        "email" => $_REQUEST["member"]["email"],
-                        "phone" => $_REQUEST["member"]["phone"],
-                        "gender" => $_REQUEST["member"]["gender"],
-                        "address" => $_REQUEST["member"]["address"],
-                        "city" => $_REQUEST["member"]["city"],
-                        "zipcode" => $_REQUEST["member"]["zipcode"],
-                        "municipality" => $_REQUEST["member"]["municipality"],
+                        "name" => "",
+                        "gamertag" => "",
+                        "birthyear" => "",
+                        "email" => "",
+                        "phone" => "",
+                        "gender" => "",
+                        "address" =>  "",
+                        "city" => "",
+                        "zipcode" => "",
+                        "municipality" => "",
                         "is_pending" => 1,
                         "is_payed" => 0,
-                        "membership" => $_REQUEST["member"]["membership"],
+                        "membership" => "0",
                         "profile_activated" => 0,
                         "auto_renew" => 1,
                         "approved_date" => 0,
@@ -190,15 +190,17 @@
                         ]);
                     }
 
-                    if( $member > 0 ) {
+                    if( $member ) {
 
-                        $membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
+                        // @depcrecated
+                        //$membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
 
                         // send member requuest receipt mail to created member
-                        $mail = (new MemberRequestReceipt($member, $membership))
-                            ->setSubject("Nyt medlemskab - " . $membership->name)
-                            ->setReciever($_REQUEST["member"]["email"])
-                            ->send();
+                        // @deprecrated
+                        // $mail = (new MemberRequestReceipt($member, $membership))
+                        //     ->setSubject("Nyt medlemskab - " . $membership->name)
+                        //     ->setReciever($_REQUEST["member"]["email"])
+                        //     ->send();
 
                         echo wp_json_encode( [
                             "member" => [
@@ -296,26 +298,26 @@
                 // echo json_encode($_REQUEST["member"]);
                 // wp_die();
 
-                $birth = $_REQUEST["member"]["year"] . "-" . $_REQUEST["member"]["month"] . "-" . $_REQUEST["member"]["day"];
+                //$birth = $_REQUEST["member"]["year"] . "-" . $_REQUEST["member"]["month"] . "-" . $_REQUEST["member"]["day"];
 
                 $created = $this->service->createMember([
                     "member_number" => $existingMember->member_number + 1,
                     "user_id" => 0,
-                    "name" => $_REQUEST["member"]["name"],
-                    "gamertag" => $_REQUEST["member"]["gamertag"],
-                    "birthyear" => $birth,
+                    "name" => $_REQUEST["member"]["name"] ?? "",
+                    "gamertag" => $_REQUEST["member"]["gamertag"] ?? "",
+                    "birthyear" => $birth ?? "",
                     "email" => $_REQUEST["member"]["email"],
-                    "phone" => $_REQUEST["member"]["phone"],
-                    "gender" => $_REQUEST["member"]["gender"],
-                    "address" => $_REQUEST["member"]["address"],
-                    "city" => $_REQUEST["member"]["city"],
-                    "zipcode" => $_REQUEST["member"]["zipcode"],
-                    "municipality" => $_REQUEST["member"]["municipality"],
+                    "phone" => $_REQUEST["member"]["phone"] ?? "",
+                    "gender" => $_REQUEST["member"]["gender"] ?? "",
+                    "address" => $_REQUEST["member"]["address"] ?? "",
+                    "city" => $_REQUEST["member"]["city"] ?? "",
+                    "zipcode" => $_REQUEST["member"]["zipcode"] ?? "",
+                    "municipality" => $_REQUEST["member"]["municipality"] ?? "",
                     "is_pending" => 1,
                     "is_payed" => 0,
-                    "membership" => $_REQUEST["member"]["membership"],
+                    "membership" => $_REQUEST["member"]["membership"] ?? "0",
                     "profile_activated" => 0,
-                    "auto_renew" => $_REQUEST["member"]["auto_renewal"],
+                    "auto_renew" => $_REQUEST["member"]["auto_renewal"] ?? 0,
                     "approved_date" => 0,
                     "created_at" => strtotime('now', time())
                 ]);
@@ -329,7 +331,7 @@
                     wp_die();
                 }
 
-                $membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
+                //$membership = $this->membershipRepository->find($_REQUEST["member"]["membership"]);
 
                 $member = $this->memberRepository->find($created); // should give you the new member
         
@@ -340,10 +342,10 @@
                     ->send();
 
                 // send receipt to new member
-                $memberRequestReceipt = (new MemberRequestReceipt($member, $membership))
-                    ->setSubject("Kvittering medlemskab - " . $membership->name)
-                    ->setReciever($member->email)
-                    ->send();
+                // $memberRequestReceipt = (new MemberRequestReceipt($member, $membership))
+                //     ->setSubject("Kvittering medlemskab - " . $membership->name)
+                //     ->setReciever($member->email)
+                //     ->send();
 
                 $this->dxl->response('member', ["response" => "Du er nu oprettet i vores system og vil blive taget hånd om dit medlemsskab"]);
                 wp_die();
