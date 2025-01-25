@@ -25,9 +25,7 @@
                         }
                     },
                     success: (response) => { 
-                        console.log(response) 
                         const json = JSON.parse(response);
-
                         const hasError = self.checkForResponseError(json.member);
 
                         if( !hasError ){
